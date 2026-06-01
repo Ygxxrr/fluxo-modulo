@@ -3,128 +3,85 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Canvas — Campanhas 2026 · Colégio Módulo</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Campanhas 2026 · Colégio Módulo</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#070B14;color:#E2E8F0;font-family:'Syne',sans-serif;overflow:hidden;width:100vw;height:100vh}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(#ffffff0e 1px,transparent 1px);background-size:26px 26px;pointer-events:none;z-index:0}
-
-.hdr{position:fixed;top:0;left:0;right:0;height:52px;z-index:100;
-  display:flex;align-items:center;justify-content:space-between;padding:0 24px;
-  background:rgba(7,11,20,.9);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08)}
-.hdr-title{font-size:14px;font-weight:800}
-.hdr-mid{font-size:11px;font-family:'DM Mono',monospace;color:#94A3B8}
-.hdr-hint{font-size:10px;font-family:'DM Mono',monospace;color:rgba(148,163,184,.45)}
-
-#cvs{position:fixed;top:52px;left:0;right:0;bottom:0;overflow:hidden;cursor:grab;z-index:1}
+body{background:#070B14;overflow:hidden;width:100vw;height:100vh;font-family:system-ui,-apple-system,sans-serif}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:26px 26px;pointer-events:none}
+.hdr{position:fixed;top:0;left:0;right:0;height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:rgba(7,11,20,.92);border-bottom:1px solid rgba(255,255,255,.1);z-index:100}
+.ht{font-size:14px;font-weight:700;color:#E2E8F0}
+.hs{font-size:11px;color:#64748B;font-family:monospace}
+.hh{font-size:10px;color:rgba(100,116,139,.55);font-family:monospace}
+#cvs{position:fixed;top:50px;left:0;right:0;bottom:0;overflow:hidden;cursor:grab}
 #cvs.drag{cursor:grabbing}
-#world{position:absolute;top:0;left:0;transform-origin:0 0}
-
-.nd{position:absolute;border-radius:12px;padding:11px 14px;border:1px solid;
-  transition:transform .12s,box-shadow .12s;cursor:default;user-select:none}
-.nd:hover{transform:translateY(-2px);z-index:50}
-.nd-lbl{font-size:13px;font-weight:700;line-height:1.3;margin-bottom:3px}
-.nd-sub{font-size:10px;line-height:1.5;color:#94A3B8;font-family:'DM Mono',monospace}
-.badges{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px}
-.bdg{font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;font-family:'DM Mono',monospace}
-
-.ctrl{position:fixed;bottom:20px;right:20px;z-index:100;display:flex;flex-direction:column;gap:5px;align-items:flex-end}
-.crow{display:flex;gap:4px;align-items:center}
-.btn{height:32px;min-width:32px;padding:0 10px;border-radius:7px;border:1px solid rgba(255,255,255,.1);
-  background:rgba(7,11,20,.92);color:#94A3B8;font-size:11px;font-family:'DM Mono',monospace;
-  cursor:pointer;backdrop-filter:blur(8px);transition:all .12s}
-.btn:hover{border-color:rgba(255,255,255,.22);color:#E2E8F0}
-#zdsp{height:32px;padding:0 10px;border-radius:7px;border:1px solid rgba(255,255,255,.1);
-  background:rgba(7,11,20,.92);color:#94A3B8;font-size:11px;font-family:'DM Mono',monospace;
-  display:flex;align-items:center;min-width:52px;justify-content:center}
-
-.hint{position:fixed;bottom:20px;left:20px;z-index:100;font-size:10px;font-family:'DM Mono',monospace;color:rgba(148,163,184,.35)}
-
-/* zone labels */
-.zlbl{position:absolute;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-  font-family:'DM Mono',monospace;opacity:.5;pointer-events:none}
-
-@keyframes dash{to{stroke-dashoffset:-14}}
+#w{position:absolute;top:0;left:0;transform-origin:0 0}
+.nd{position:absolute;border-radius:10px;padding:10px 13px;border:1px solid}
+.nd:hover{z-index:50;filter:brightness(1.1)}
+.nl{font-size:12px;font-weight:700;line-height:1.3;margin-bottom:2px}
+.ns{font-size:9.5px;line-height:1.5;color:#94A3B8;font-family:monospace}
+.bgs{display:flex;flex-wrap:wrap;gap:2px;margin-top:4px}
+.bg{font-size:8.5px;font-weight:700;padding:1px 5px;border-radius:3px;font-family:monospace}
+.ctrl{position:fixed;bottom:18px;right:18px;z-index:100;display:flex;gap:5px;align-items:center}
+.btn{height:32px;padding:0 11px;border-radius:7px;border:1px solid rgba(255,255,255,.14);background:rgba(7,11,20,.9);color:#94A3B8;font-size:11px;font-family:monospace;cursor:pointer}
+.btn:hover{color:#E2E8F0;border-color:rgba(255,255,255,.28)}
+#zd{height:32px;padding:0 10px;border-radius:7px;border:1px solid rgba(255,255,255,.14);background:rgba(7,11,20,.9);color:#94A3B8;font-size:11px;font-family:monospace;display:flex;align-items:center;min-width:52px;justify-content:center}
+.hint{position:fixed;bottom:18px;left:18px;font-size:10px;color:rgba(100,116,139,.4);font-family:monospace;z-index:100}
 </style>
 </head>
 <body>
-
 <div class="hdr">
-  <span class="hdr-title">Colégio Módulo — Estrutura de Campanhas 2026</span>
-  <span class="hdr-mid">Meta R$3.900/mês &nbsp;·&nbsp; Google R$7.800/mês &nbsp;·&nbsp; R$140.400/ano</span>
-  <span class="hdr-hint">drag · scroll · F fit · R reset</span>
+  <span class="ht">Colégio Módulo — Estrutura de Campanhas 2026</span>
+  <span class="hs">Meta R$3.900/mês &nbsp;·&nbsp; Google R$7.800/mês &nbsp;·&nbsp; Total R$140.400/ano</span>
+  <span class="hh">drag · scroll · F fit · R reset</span>
 </div>
-
-<div id="cvs"><div id="world">
-  <svg id="svg" style="position:absolute;top:0;left:0;overflow:visible;pointer-events:none" width="3600" height="1400"></svg>
+<div id="cvs"><div id="w">
+  <svg id="svg" style="position:absolute;top:0;left:0;overflow:visible;pointer-events:none" width="3500" height="1300"></svg>
 </div></div>
-
 <div class="hint">drag · scroll · <b>F</b> fit · <b>R</b> reset</div>
 <div class="ctrl">
-  <div class="crow">
-    <button class="btn" id="bfit">⛶ FIT</button>
-    <button class="btn" id="brst">↺ RESET</button>
-  </div>
-  <div class="crow">
-    <button class="btn" id="bm">−</button>
-    <div id="zdsp">100%</div>
-    <button class="btn" id="bp">+</button>
-  </div>
+  <button class="btn" id="bfit">⛶ FIT</button>
+  <button class="btn" id="bm">−</button>
+  <div id="zd">100%</div>
+  <button class="btn" id="bp">+</button>
 </div>
-
 <script>
-// COLORS
-var BL='#1877F2', RD='#EA4335', PX='#4285F4', DP='#9333EA',
-    GN='#10B981', AU='#F59E0B', PK='#EC4899', WA='#22C55E';
-
-// NODES
-var ND = [
-  // META platform
-  {id:'meta',x:380,y:24,w:470,h:80,lbl:'META ADS',sub:'R$3.900/mês · 4 campanhas · Geração de Leads',c:BL,big:true},
-  // META campaigns
-  {id:'m1',x:10,y:182,w:288,h:72,lbl:'Camp. 1 · Future Fest',sub:'CBO · R$1.755/mês',c:BL},
-  {id:'m2',x:316,y:182,w:272,h:72,lbl:'Camp. 2 · Cultura Inglesa',sub:'CBO · R$975/mês',c:BL},
-  {id:'m3',x:606,y:182,w:265,h:72,lbl:'Camp. 3 · Pré-Matrícula',sub:'CBO · R$1.170/mês',c:BL},
-  {id:'m4',x:889,y:182,w:258,h:72,lbl:'Camp. 4 · Retargeting',sub:'ABO · R$1.170/mês',c:DP},
-  // META ad sets
-  {id:'m1a',x:0,y:350,w:186,h:76,lbl:'Awareness Vídeo',sub:'Raio 10km · Pais 28–48\nVídeo 15–30s Future Fest',c:BL},
-  {id:'m1b',x:194,y:350,w:172,h:76,lbl:'Leads EF',sub:'Carrossel · Pais 28–45\nProjetos por série',c:BL},
-  {id:'m1c',x:374,y:350,w:172,h:76,lbl:'Leads EM',sub:'Feed/Stories · Pais 32–50\nCopy Cultura Inglesa',c:BL},
-  {id:'m2a',x:554,y:350,w:206,h:76,lbl:'Interesse Inglês',sub:'Raio 10km · Pais 28–50\nInglês incluso mensalidade',c:BL},
-  {id:'m3a',x:768,y:350,w:196,h:76,lbl:'Lookalike 1–3%',sub:'Base de responsáveis\nUrgência pré-matrícula',c:BL},
-  {id:'m3b',x:972,y:350,w:196,h:76,lbl:'Interesses Educação',sub:'Raio 10km\n"A condição que não volta"',c:BL},
-  {id:'m4a',x:1176,y:350,w:188,h:76,lbl:'Visitantes 30 dias',sub:'Pixel site\nBanner Future Fest',c:DP},
-  {id:'m4b',x:1372,y:350,w:188,h:76,lbl:'Abandono Form.',sub:'Pixel formulário\n"Você visitou o Módulo..."',c:DP},
-  // GOOGLE platform
-  {id:'ggl',x:2040,y:24,w:476,h:80,lbl:'GOOGLE ADS',sub:'R$7.800/mês · 5 campanhas · Search + PMax + Display',c:RD,big:true},
-  // GOOGLE campaigns
-  {id:'g1',x:1730,y:182,w:254,h:72,lbl:'Search Marca',sub:'CPA Desejado · R$2.340/mês',c:RD},
-  {id:'g2',x:2002,y:182,w:264,h:72,lbl:'Search Intenção EF',sub:'Max. Conv. · R$1.950/mês',c:RD},
-  {id:'g3',x:2284,y:182,w:264,h:72,lbl:'Search Intenção EM',sub:'Max. Conv. · R$1.170/mês',c:RD},
-  {id:'g4',x:2566,y:182,w:232,h:72,lbl:'Performance Max',sub:'CPA Desejado · R$1.170/mês',c:PX},
-  {id:'g5',x:2816,y:182,w:244,h:72,lbl:'Display Remarketing',sub:'R$1.170/mês',c:DP},
-  // GOOGLE groups
-  {id:'g1a',x:1700,y:350,w:206,h:82,lbl:'Grupo Marca Própria',sub:'"colégio módulo" + variações',c:RD,bdg:['Exata','Frase','Ampla']},
-  {id:'g1b',x:1914,y:350,w:198,h:82,lbl:'Grupo Concorrência',sub:'"escola inglês incluso sp"',c:RD,bdg:['Exata','Frase']},
-  {id:'g2a',x:2120,y:350,w:206,h:82,lbl:'Grupo Matrícula EF',sub:'"matrícula escola fundamental"',c:RD,bdg:['Exata','Frase','Ampla']},
-  {id:'g2b',x:2334,y:350,w:196,h:82,lbl:'Grupo Tecnologia',sub:'"escola projeto tecnológico sp"',c:RD,bdg:['Frase','Ampla']},
-  {id:'g3a',x:2538,y:350,w:206,h:82,lbl:'Grupo Matrícula EM',sub:'"colégio ensino médio sp"',c:RD,bdg:['Exata','Frase','Ampla']},
-  {id:'g4a',x:2752,y:350,w:194,h:82,lbl:'Assets Criativos',sub:'Vídeos Future Fest\nFotos · Headlines Cultura Inglesa',c:PX},
-  {id:'g5a',x:2954,y:350,w:194,h:82,lbl:'Visitantes 30 dias',sub:'Banner display · Raio 10km',c:DP},
-  // FUNNEL
-  {id:'lp',x:1420,y:590,w:370,h:90,lbl:'LANDING PAGE',sub:'Pré-Matrícula · Condição Especial',c:GN,big:true,special:'lp'},
-  {id:'wa',x:1490,y:762,w:276,h:70,lbl:'WhatsApp · Atendimento',sub:'Resposta em até 15 minutos',c:WA,special:'wa'},
-  {id:'mat',x:1464,y:910,w:316,h:90,lbl:'MATRÍCULA',sub:'Meta: 60–100 matrículas/ano',c:AU,big:true,special:'mat'},
-  {id:'ind',x:1540,y:1082,w:230,h:68,lbl:'Indicação',sub:'Retenção · Novas famílias',c:PK,special:'ind'},
+var BL='#1877F2',RD='#EA4335',PX='#4285F4',DP='#9333EA',GN='#10B981',AU='#F59E0B',PK='#EC4899',WA='#22C55E';
+var ND=[
+  {id:'meta',x:370,y:30,w:460,h:76,lbl:'META ADS',sub:'R$3.900/mes . 4 campanhas . Geracao de Leads',c:BL,big:1},
+  {id:'m1',x:10,y:178,w:280,h:68,lbl:'Camp. 1 - Future Fest',sub:'CBO . R$1.755/mes',c:BL},
+  {id:'m2',x:308,y:178,w:265,h:68,lbl:'Camp. 2 - Cultura Inglesa',sub:'CBO . R$975/mes',c:BL},
+  {id:'m3',x:591,y:178,w:258,h:68,lbl:'Camp. 3 - Pre-Matricula',sub:'CBO . R$1.170/mes',c:BL},
+  {id:'m4',x:867,y:178,w:250,h:68,lbl:'Camp. 4 - Retargeting',sub:'ABO . R$1.170/mes',c:DP},
+  {id:'m1a',x:0,y:340,w:180,h:72,lbl:'Awareness Video',sub:'Raio 10km . Pais 28-48\nVideo Future Fest',c:BL},
+  {id:'m1b',x:188,y:340,w:166,h:72,lbl:'Leads EF',sub:'Carrossel . Pais 28-45\nProjetos por serie',c:BL},
+  {id:'m1c',x:362,y:340,w:166,h:72,lbl:'Leads EM',sub:'Feed . Pais 32-50\nCultura Inglesa',c:BL},
+  {id:'m2a',x:536,y:340,w:200,h:72,lbl:'Interesse Ingles',sub:'Raio 10km . Pais 28-50\nIngles incluso mensalidade',c:BL},
+  {id:'m3a',x:744,y:340,w:190,h:72,lbl:'Lookalike 1-3%',sub:'Base de responsaveis\nUrgencia pre-matricula',c:BL},
+  {id:'m3b',x:942,y:340,w:190,h:72,lbl:'Interesses Educacao',sub:'Raio 10km\nCondicao que nao volta',c:BL},
+  {id:'m4a',x:1140,y:340,w:182,h:72,lbl:'Visitantes 30 dias',sub:'Pixel site\nBanner Future Fest',c:DP},
+  {id:'m4b',x:1330,y:340,w:182,h:72,lbl:'Abandono Form.',sub:'Pixel formulario\nVoce visitou o Modulo',c:DP},
+  {id:'ggl',x:2020,y:30,w:470,h:76,lbl:'GOOGLE ADS',sub:'R$7.800/mes . 5 campanhas . Search + PMax + Display',c:RD,big:1},
+  {id:'g1',x:1710,y:178,w:248,h:68,lbl:'Search Marca',sub:'CPA Desejado . R$2.340/mes',c:RD},
+  {id:'g2',x:1976,y:178,w:258,h:68,lbl:'Search Intencao EF',sub:'Max. Conv. . R$1.950/mes',c:RD},
+  {id:'g3',x:2252,y:178,w:258,h:68,lbl:'Search Intencao EM',sub:'Max. Conv. . R$1.170/mes',c:RD},
+  {id:'g4',x:2528,y:178,w:228,h:68,lbl:'Performance Max',sub:'CPA Desejado . R$1.170/mes',c:PX},
+  {id:'g5',x:2774,y:178,w:238,h:68,lbl:'Display Remarketing',sub:'R$1.170/mes',c:DP},
+  {id:'g1a',x:1682,y:340,w:200,h:78,lbl:'Grupo Marca Propria',sub:'"colegio modulo" + variacoes',c:RD,bdg:['Exata','Frase','Ampla']},
+  {id:'g1b',x:1890,y:340,w:192,h:78,lbl:'Grupo Concorrencia',sub:'"escola ingles incluso sp"',c:RD,bdg:['Exata','Frase']},
+  {id:'g2a',x:2090,y:340,w:200,h:78,lbl:'Grupo Matricula EF',sub:'"matricula escola fundamental"',c:RD,bdg:['Exata','Frase','Ampla']},
+  {id:'g2b',x:2298,y:340,w:192,h:78,lbl:'Grupo Tecnologia',sub:'"escola projeto tecnologico"',c:RD,bdg:['Frase','Ampla']},
+  {id:'g3a',x:2498,y:340,w:200,h:78,lbl:'Grupo Matricula EM',sub:'"colegio ensino medio sp"',c:RD,bdg:['Exata','Frase','Ampla']},
+  {id:'g4a',x:2706,y:340,w:188,h:78,lbl:'Assets Criativos',sub:'Videos Future Fest\nFotos . Headlines',c:PX},
+  {id:'g5a',x:2902,y:340,w:188,h:78,lbl:'Visitantes 30 dias',sub:'Banner display . Raio 10km',c:DP},
+  {id:'lp',x:1390,y:560,w:360,h:86,lbl:'LANDING PAGE',sub:'Pre-Matricula . Condicao Especial',c:GN,big:1,sp:'lp'},
+  {id:'wa',x:1460,y:722,w:268,h:68,lbl:'WhatsApp . Atendimento',sub:'Resposta em ate 15 minutos',c:WA,sp:'wa'},
+  {id:'mat',x:1436,y:864,w:306,h:86,lbl:'MATRICULA',sub:'Meta: 60-100 matriculas/ano',c:AU,big:1,sp:'mat'},
+  {id:'ind',x:1510,y:1026,w:224,h:64,lbl:'Indicacao',sub:'Retencao . Novas familias',c:PK,sp:'ind'},
 ];
-
-// EDGES
-var ED = [
+var ED=[
   {f:'meta',t:'m1'},{f:'meta',t:'m2'},{f:'meta',t:'m3'},{f:'meta',t:'m4'},
   {f:'m1',t:'m1a'},{f:'m1',t:'m1b'},{f:'m1',t:'m1c'},
-  {f:'m2',t:'m2a'},{f:'m3',t:'m3a'},{f:'m3',t:'m3b'},
-  {f:'m4',t:'m4a'},{f:'m4',t:'m4b'},
+  {f:'m2',t:'m2a'},{f:'m3',t:'m3a'},{f:'m3',t:'m3b'},{f:'m4',t:'m4a'},{f:'m4',t:'m4b'},
   {f:'m1a',t:'lp',k:'cta'},{f:'m1b',t:'lp',k:'cta'},{f:'m1c',t:'lp',k:'cta'},
   {f:'m2a',t:'lp',k:'cta'},{f:'m3a',t:'lp',k:'cta'},{f:'m3b',t:'lp',k:'cta'},
   {f:'m4a',t:'lp',k:'cta'},{f:'m4b',t:'lp',k:'cta'},
@@ -136,228 +93,68 @@ var ED = [
   {f:'g3a',t:'lp',k:'cta'},{f:'g4a',t:'lp',k:'cta'},{f:'g5a',t:'lp',k:'cta'},
   {f:'lp',t:'wa',k:'fn'},{f:'wa',t:'mat',k:'fn'},{f:'mat',t:'ind',k:'fn'},
 ];
-
-// BUILD NODES
-var world = document.getElementById('world');
-var svg = document.getElementById('svg');
-var nm = {};
-
+var w=document.getElementById('w'),svg=document.getElementById('svg'),nm={};
 ND.forEach(function(n){
-  nm[n.id] = n;
-  var d = document.createElement('div');
-  d.className = 'nd';
-  d.style.left = n.x+'px';
-  d.style.top = n.y+'px';
-  d.style.width = n.w+'px';
-  d.style.minHeight = n.h+'px';
-
-  // special styles
-  if(n.special==='lp'){
-    d.style.background = 'linear-gradient(135deg,rgba(16,185,129,.18),rgba(16,185,129,.06))';
-    d.style.borderColor = 'rgba(16,185,129,.65)';
-    d.style.boxShadow = '0 0 32px rgba(16,185,129,.3),inset 0 1px 0 rgba(255,255,255,.06)';
-  } else if(n.special==='wa'){
-    d.style.background = 'linear-gradient(135deg,rgba(34,197,94,.14),rgba(34,197,94,.04))';
-    d.style.borderColor = 'rgba(34,197,94,.5)';
-    d.style.boxShadow = '0 0 20px rgba(34,197,94,.22)';
-  } else if(n.special==='mat'){
-    d.style.background = 'linear-gradient(135deg,rgba(245,158,11,.18),rgba(245,158,11,.06))';
-    d.style.borderColor = 'rgba(245,158,11,.65)';
-    d.style.boxShadow = '0 0 32px rgba(245,158,11,.3),inset 0 1px 0 rgba(255,255,255,.06)';
-  } else if(n.special==='ind'){
-    d.style.background = 'rgba(236,72,153,.08)';
-    d.style.borderColor = 'rgba(236,72,153,.42)';
-    d.style.boxShadow = '0 0 16px rgba(236,72,153,.18)';
-  } else {
-    var alpha = n.big ? '.06' : '.03';
-    d.style.background = 'rgba(255,255,255,'+alpha+')';
-    d.style.borderColor = n.c+'55';
-    d.style.boxShadow = '0 0 16px '+n.c+'1a';
-  }
-
-  var lbl = document.createElement('div');
-  lbl.className = 'nd-lbl';
-  lbl.style.color = n.c;
-  if(n.big) lbl.style.fontSize = '15px';
-  lbl.textContent = n.lbl;
-
-  var sub = document.createElement('div');
-  sub.className = 'nd-sub';
-  sub.textContent = n.sub;
-
-  d.appendChild(lbl);
-  d.appendChild(sub);
-
-  if(n.bdg){
-    var bw = document.createElement('div');
-    bw.className = 'badges';
-    n.bdg.forEach(function(b){
-      var s = document.createElement('span');
-      s.className = 'bdg';
-      s.style.background = n.c+'22';
-      s.style.color = n.c;
-      s.style.border = '1px solid '+n.c+'44';
-      s.textContent = b;
-      bw.appendChild(s);
-    });
-    d.appendChild(bw);
-  }
-
-  world.appendChild(d);
+  nm[n.id]=n;
+  var d=document.createElement('div');d.className='nd';
+  d.style.left=n.x+'px';d.style.top=n.y+'px';d.style.width=n.w+'px';d.style.minHeight=n.h+'px';
+  var bg,bc,bs;
+  if(n.sp=='lp'){bg='rgba(16,185,129,.15)';bc='rgba(16,185,129,.6)';bs='0 0 20px rgba(16,185,129,.25)';}
+  else if(n.sp=='wa'){bg='rgba(34,197,94,.12)';bc='rgba(34,197,94,.5)';bs='0 0 14px rgba(34,197,94,.2)';}
+  else if(n.sp=='mat'){bg='rgba(245,158,11,.15)';bc='rgba(245,158,11,.6)';bs='0 0 20px rgba(245,158,11,.28)';}
+  else if(n.sp=='ind'){bg='rgba(236,72,153,.08)';bc='rgba(236,72,153,.42)';bs='none';}
+  else{bg=n.big?'rgba(255,255,255,.05)':'rgba(255,255,255,.025)';bc=n.c+'55';bs='none';}
+  d.style.background=bg;d.style.borderColor=bc;d.style.boxShadow=bs;
+  var lbl=document.createElement('div');lbl.className='nl';lbl.style.color=n.c;
+  if(n.big)lbl.style.fontSize='14px';lbl.textContent=n.lbl;
+  var sub=document.createElement('div');sub.className='ns';sub.textContent=n.sub;
+  d.appendChild(lbl);d.appendChild(sub);
+  if(n.bdg){var bw=document.createElement('div');bw.className='bgs';
+    n.bdg.forEach(function(b){var s=document.createElement('span');s.className='bg';
+      s.style.background=n.c+'22';s.style.color=n.c;s.style.border='1px solid '+n.c+'44';
+      s.textContent=b;bw.appendChild(s);});d.appendChild(bw);}
+  w.appendChild(d);
 });
-
-// ZONE LABELS
-var zones = [
-  {x:0,y:6,lbl:'META ADS',c:BL},
-  {x:1700,y:6,lbl:'GOOGLE ADS',c:RD},
-  {x:1410,y:572,lbl:'FUNIL DE CONVERSÃO',c:GN},
-];
-zones.forEach(function(z){
-  var s = document.createElement('span');
-  s.className = 'zlbl';
-  s.style.left = z.x+'px';
-  s.style.top = z.y+'px';
-  s.style.color = z.c;
-  s.textContent = z.lbl;
-  world.appendChild(s);
-});
-
-// DRAW EDGES
-var defs = document.createElementNS('http://www.w3.org/2000/svg','defs');
-var markers = [[BL,'bl'],[RD,'rd'],[GN,'gn'],[AU,'au'],[PK,'pk']];
-markers.forEach(function(m){
-  var mk = document.createElementNS('http://www.w3.org/2000/svg','marker');
-  mk.setAttribute('id','a'+m[1]);
-  mk.setAttribute('markerWidth','7');
-  mk.setAttribute('markerHeight','7');
-  mk.setAttribute('refX','5');
-  mk.setAttribute('refY','3.5');
-  mk.setAttribute('orient','auto');
-  var p = document.createElementNS('http://www.w3.org/2000/svg','path');
-  p.setAttribute('d','M0,0 L0,7 L7,3.5 z');
-  p.setAttribute('fill',m[0]);
-  mk.appendChild(p);
-  defs.appendChild(mk);
-});
+var defs=document.createElementNS('http://www.w3.org/2000/svg','defs');
+[[BL,'bl'],[RD,'rd'],[GN,'gn'],[AU,'au'],[PK,'pk']].forEach(function(m){
+  var mk=document.createElementNS('http://www.w3.org/2000/svg','marker');
+  mk.setAttribute('id','a'+m[1]);mk.setAttribute('markerWidth','7');mk.setAttribute('markerHeight','7');
+  mk.setAttribute('refX','5');mk.setAttribute('refY','3.5');mk.setAttribute('orient','auto');
+  var p=document.createElementNS('http://www.w3.org/2000/svg','path');
+  p.setAttribute('d','M0,0 L0,7 L7,3.5 z');p.setAttribute('fill',m[0]);mk.appendChild(p);defs.appendChild(mk);});
 svg.appendChild(defs);
-
-function bot(n){return{x:n.x+n.w/2, y:n.y+n.h};}
-function top(n){return{x:n.x+n.w/2, y:n.y};}
-
-var metaSet = {meta:1,m1:1,m2:1,m3:1,m4:1,m1a:1,m1b:1,m1c:1,m2a:1,m3a:1,m3b:1,m4a:1,m4b:1};
-
+var ms={meta:1,m1:1,m2:1,m3:1,m4:1,m1a:1,m1b:1,m1c:1,m2a:1,m3a:1,m3b:1,m4a:1,m4b:1};
 ED.forEach(function(e){
-  var fn=nm[e.f], tn=nm[e.t];
-  if(!fn||!tn) return;
-  var isM = !!metaSet[e.f];
-  var stroke, mkr, op, sw, da=null;
-
-  if(e.k==='fn'){
-    stroke = e.f==='lp'?GN:e.f==='wa'?AU:PK;
-    mkr = 'url(#a'+(e.f==='lp'?'gn':'au')+')';
-    op=.9; sw=2.5;
-  } else if(e.k==='cta'){
-    stroke = isM?BL:RD;
-    mkr = 'url(#a'+(isM?'bl':'rd')+')';
-    op=.2; sw=1.5; da='6 5';
-  } else if(isM){
-    stroke=BL; mkr='url(#abl)'; op=.55; sw=1.8;
-  } else {
-    stroke=RD; mkr='url(#ard)'; op=.55; sw=1.8;
-  }
-
-  var fr=bot(fn), to=top(tn);
-  var path = document.createElementNS('http://www.w3.org/2000/svg','path');
-  var d;
-
-  if(e.k==='cta'){
-    var cy1=fr.y+70, cy2=to.y-70;
-    d='M'+fr.x+','+fr.y+' C'+fr.x+','+cy1+' '+to.x+','+cy2+' '+to.x+','+to.y;
-    if(da){
-      path.setAttribute('stroke-dasharray',da);
-      path.style.animation='dash 1.6s linear infinite';
-    }
-  } else if(e.k==='fn'){
-    d='M'+fr.x+','+fr.y+' L'+to.x+','+to.y;
-  } else {
-    var mid=(fr.y+to.y)/2;
-    d='M'+fr.x+','+fr.y+' C'+fr.x+','+mid+' '+to.x+','+mid+' '+to.x+','+to.y;
-  }
-
-  path.setAttribute('d',d);
-  path.setAttribute('stroke',stroke);
-  path.setAttribute('stroke-width',sw);
-  path.setAttribute('fill','none');
-  path.setAttribute('opacity',op);
-  path.setAttribute('marker-end',mkr);
-  svg.appendChild(path);
+  var fn=nm[e.f],tn=nm[e.t];if(!fn||!tn)return;
+  var isM=!!ms[e.f],stroke,mkr,op,sw;
+  if(e.k=='fn'){stroke=e.f=='lp'?GN:e.f=='wa'?AU:PK;mkr='url(#a'+(e.f=='lp'?'gn':'au')+')';op=.9;sw=2.2;}
+  else if(e.k=='cta'){stroke=isM?BL:RD;mkr='url(#a'+(isM?'bl':'rd')+')';op=.18;sw=1.5;}
+  else if(isM){stroke=BL;mkr='url(#abl)';op=.5;sw=1.6;}
+  else{stroke=RD;mkr='url(#ard)';op=.5;sw=1.6;}
+  var fx=fn.x+fn.w/2,fy=fn.y+fn.h,tx2=tn.x+tn.w/2,ty2=tn.y;
+  var p=document.createElementNS('http://www.w3.org/2000/svg','path'),d;
+  if(e.k=='cta'){d='M'+fx+','+fy+' C'+fx+','+(fy+65)+' '+tx2+','+(ty2-65)+' '+tx2+','+ty2;p.setAttribute('stroke-dasharray','5 5');}
+  else if(e.k=='fn'){d='M'+fx+','+fy+' L'+tx2+','+ty2;}
+  else{var mid=(fy+ty2)/2;d='M'+fx+','+fy+' C'+fx+','+mid+' '+tx2+','+mid+' '+tx2+','+ty2;}
+  p.setAttribute('d',d);p.setAttribute('stroke',stroke);p.setAttribute('stroke-width',sw);
+  p.setAttribute('fill','none');p.setAttribute('opacity',op);p.setAttribute('marker-end',mkr);
+  svg.appendChild(p);
 });
-
-// CANVAS PAN/ZOOM
-var cvs = document.getElementById('cvs');
-var tx=0, ty=0, sc=1, drag=false, lx=0, ly=0;
-
-function apply(){
-  world.style.transform='translate('+tx+'px,'+ty+'px) scale('+sc+')';
-  document.getElementById('zdsp').textContent=Math.round(sc*100)+'%';
-}
-
-function fit(){
-  var W=3280, H=1220;
-  var cw=cvs.clientWidth, ch=cvs.clientHeight;
-  sc=Math.min(cw/W, ch/H)*0.88;
-  tx=(cw-W*sc)/2;
-  ty=(ch-H*sc)/2;
-  apply();
-}
-
-function reset(){tx=40;ty=40;sc=1;apply();}
-
-// Start fitted
-window.addEventListener('load',function(){ fit(); });
-setTimeout(fit, 100);
-
-cvs.addEventListener('mousedown',function(e){
-  if(e.target.closest('.nd')) return;
-  drag=true; lx=e.clientX; ly=e.clientY;
-  cvs.classList.add('drag');
-});
-window.addEventListener('mousemove',function(e){
-  if(!drag) return;
-  tx+=e.clientX-lx; ty+=e.clientY-ly;
-  lx=e.clientX; ly=e.clientY;
-  apply();
-});
-window.addEventListener('mouseup',function(){drag=false;cvs.classList.remove('drag');});
-
-cvs.addEventListener('wheel',function(e){
-  e.preventDefault();
-  var r=cvs.getBoundingClientRect();
-  var mx=e.clientX-r.left, my=e.clientY-r.top;
-  var f=e.deltaY<0?1.12:0.89;
-  var ns=Math.max(0.08,Math.min(4,sc*f));
-  tx=mx-(mx-tx)*ns/sc; ty=my-(my-ty)*ns/sc;
-  sc=ns; apply();
-},{passive:false});
-
-window.addEventListener('keydown',function(e){
-  if(e.key==='f'||e.key==='F') fit();
-  if(e.key==='r'||e.key==='R') reset();
-  if(e.key==='0'){sc=1;tx=40;ty=40;apply();}
-});
-
-function zoom(dir){
-  var f=dir>0?1.2:0.83;
-  var ns=Math.max(0.08,Math.min(4,sc*f));
-  var cx=cvs.clientWidth/2, cy=cvs.clientHeight/2;
-  tx=cx-(cx-tx)*ns/sc; ty=cy-(cy-ty)*ns/sc;
-  sc=ns; apply();
-}
-
+var cvs=document.getElementById('cvs'),tx=0,ty=0,sc=1,drag=false,lx=0,ly=0;
+function apply(){w.style.transform='translate('+tx+'px,'+ty+'px) scale('+sc+')';document.getElementById('zd').textContent=Math.round(sc*100)+'%';}
+function fit(){var W=3240,H=1160,cw=cvs.clientWidth,ch=cvs.clientHeight;sc=Math.min(cw/W,ch/H)*.87;tx=(cw-W*sc)/2;ty=(ch-H*sc)/2;apply();}
+function reset(){tx=30;ty=30;sc=1;apply();}
+window.onload=function(){fit();};
+setTimeout(function(){fit();},200);
+cvs.addEventListener('mousedown',function(e){if(e.target.closest('.nd'))return;drag=true;lx=e.clientX;ly=e.clientY;cvs.classList.add('drag');});
+document.addEventListener('mousemove',function(e){if(!drag)return;tx+=e.clientX-lx;ty+=e.clientY-ly;lx=e.clientX;ly=e.clientY;apply();});
+document.addEventListener('mouseup',function(){drag=false;cvs.classList.remove('drag');});
+cvs.addEventListener('wheel',function(e){e.preventDefault();var r=cvs.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top,f=e.deltaY<0?1.12:.88,ns=Math.max(.08,Math.min(4,sc*f));tx=mx-(mx-tx)*ns/sc;ty=my-(my-ty)*ns/sc;sc=ns;apply();},{passive:false});
+window.addEventListener('keydown',function(e){if(e.key=='f'||e.key=='F')fit();if(e.key=='r'||e.key=='R')reset();});
+function zoom(f){var ns=Math.max(.08,Math.min(4,sc*f)),cx=cvs.clientWidth/2,cy=cvs.clientHeight/2;tx=cx-(cx-tx)*ns/sc;ty=cy-(cy-ty)*ns/sc;sc=ns;apply();}
 document.getElementById('bfit').onclick=fit;
-document.getElementById('brst').onclick=reset;
-document.getElementById('bp').onclick=function(){zoom(1);};
-document.getElementById('bm').onclick=function(){zoom(-1);};
+document.getElementById('bp').onclick=function(){zoom(1.2);};
+document.getElementById('bm').onclick=function(){zoom(.83);};
 </script>
 </body>
 </html>
