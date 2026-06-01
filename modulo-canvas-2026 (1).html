@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canvas — Campanhas 2026 · Colégio Módulo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070B14;
+  --blue:#1877F2; --blue-dim:rgba(24,119,242,.14); --blue-glow:rgba(24,119,242,.35);
+  --red:#EA4335;  --red-dim:rgba(234,67,53,.14);   --red-glow:rgba(234,67,53,.35);
+  --pmax:#4285F4; --disp:#9333EA;
+  --green:#10B981; --green-glow:rgba(16,185,129,.35);
+  --gold:#F59E0B;  --gold-glow:rgba(245,158,11,.35);
+  --pink:#EC4899;
+  --wa:#22C55E;
+  --t1:#E2E8F0; --t2:#94A3B8; --t3:rgba(148,163,184,.38);
+  --surf:rgba(255,255,255,.04); --brd:rgba(255,255,255,.08);
+}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--t1);font-family:'Syne',sans-serif}
+
+/* ── dot-grid bg ── */
+body::before{content:'';position:fixed;inset:0;
+  background:radial-gradient(circle,rgba(255,255,255,.055) 1px,transparent 1px);
+  background-size:26px 26px;pointer-events:none;z-index:0}
+
+/* ── header ── */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;
+  display:flex;align-items:center;justify-content:space-between;padding:0 24px;
+  background:rgba(7,11,20,.88);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--brd)}
+.hdr-l{display:flex;flex-direction:column;gap:1px}
+.hdr-brand{font-size:10px;font-weight:700;letter-spacing:.16em;color:var(--t3);text-transform:uppercase}
+.hdr-title{font-size:14px;font-weight:800;color:var(--t1);letter-spacing:.01em}
+.hdr-mid{font-size:11px;font-family:'DM Mono',monospace;color:var(--t2)}
+.hdr-r{font-size:10px;font-family:'DM Mono',monospace;color:var(--t3)}
+
+/* ── canvas ── */
+#cvs{position:fixed;inset:54px 0 0 0;overflow:hidden;cursor:grab;z-index:1}
+#cvs.drag{cursor:grabbing}
+#world{position:absolute;transform-origin:0 0;will-change:transform}
+
+/* ── SVG ── */
+#svg{position:absolute;top:0;left:0;overflow:visible;pointer-events:none}
+
+/* ── section zones ── */
+.zone{position:absolute;border-radius:20px;border:1px dashed;pointer-events:none}
+.zone-meta{border-color:rgba(24,119,242,.18);background:rgba(24,119,242,.03)}
+.zone-google{border-color:rgba(234,67,53,.18);background:rgba(234,67,53,.03)}
+.zone-funnel{border-color:rgba(16,185,129,.2);background:rgba(16,185,129,.04)}
+.zone-label{position:absolute;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.45;top:-18px;left:16px;font-family:'DM Mono',monospace}
+
+/* ── nodes ── */
+.nd{position:absolute;border-radius:14px;border:1px solid;
+  backdrop-filter:blur(10px);cursor:pointer;user-select:none;
+  transition:transform .15s ease,box-shadow .15s ease;
+  padding:11px 15px}
+.nd:hover{transform:translateY(-2px) scale(1.015);z-index:20}
+.nd-lbl{font-size:13px;font-weight:700;line-height:1.25;margin-bottom:3px}
+.nd-sub{font-size:10.5px;line-height:1.45;color:var(--t2);font-family:'DM Mono',monospace}
+.badges{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px}
+.bdg{font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;
+  font-family:'DM Mono',monospace;letter-spacing:.04em}
+
+/* platform */
+.nd-plat{background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.02))}
+.nd-plat .nd-lbl{font-size:16px;font-weight:800;letter-spacing:.02em}
+.nd-meta{border-color:rgba(24,119,242,.55);box-shadow:0 0 28px var(--blue-glow),inset 0 1px 0 rgba(255,255,255,.06)}
+.nd-google{border-color:rgba(234,67,53,.55);box-shadow:0 0 28px var(--red-glow),inset 0 1px 0 rgba(255,255,255,.06)}
+
+/* campaign */
+.nd-camp{background:rgba(255,255,255,.04)}
+
+/* adset / group */
+.nd-set{background:rgba(255,255,255,.025)}
+
+/* funnel nodes */
+.nd-lp{background:linear-gradient(135deg,rgba(16,185,129,.16),rgba(16,185,129,.05));
+  border-color:rgba(16,185,129,.6)!important;
+  box-shadow:0 0 36px var(--green-glow),inset 0 1px 0 rgba(255,255,255,.08)!important}
+.nd-lp .nd-lbl{font-size:16px;font-weight:800;color:#34D399}
+
+.nd-wa{background:linear-gradient(135deg,rgba(34,197,94,.13),rgba(34,197,94,.04));
+  border-color:rgba(34,197,94,.5)!important;box-shadow:0 0 20px rgba(34,197,94,.22)!important}
+.nd-wa .nd-lbl{color:#4ADE80}
+
+.nd-mat{background:linear-gradient(135deg,rgba(245,158,11,.16),rgba(245,158,11,.05));
+  border-color:rgba(245,158,11,.65)!important;
+  box-shadow:0 0 36px var(--gold-glow),inset 0 1px 0 rgba(255,255,255,.08)!important}
+.nd-mat .nd-lbl{font-size:16px;font-weight:800;color:#FCD34D}
+
+.nd-ind{background:rgba(236,72,153,.07);border-color:rgba(236,72,153,.4)!important;
+  box-shadow:0 0 16px rgba(236,72,153,.18)!important}
+.nd-ind .nd-lbl{color:#F9A8D4}
+
+/* ── controls ── */
+.ctrl{position:fixed;bottom:22px;right:22px;z-index:300;display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.ctrl-row{display:flex;gap:5px;align-items:center}
+.btn{display:flex;align-items:center;justify-content:center;height:34px;min-width:34px;padding:0 10px;
+  border-radius:8px;border:1px solid var(--brd);background:rgba(7,11,20,.9);
+  color:var(--t2);font-size:12px;font-family:'DM Mono',monospace;font-weight:500;
+  cursor:pointer;backdrop-filter:blur(8px);transition:all .15s;white-space:nowrap;gap:5px}
+.btn:hover{border-color:rgba(255,255,255,.22);color:var(--t1)}
+#zdsp{font-size:12px;font-family:'DM Mono',monospace;color:var(--t2);
+  background:rgba(7,11,20,.9);border:1px solid var(--brd);padding:0 10px;
+  height:34px;border-radius:8px;display:flex;align-items:center;
+  backdrop-filter:blur(8px);min-width:56px;justify-content:center}
+
+.hint{position:fixed;bottom:22px;left:22px;z-index:300;
+  font-size:10px;font-family:'DM Mono',monospace;color:var(--t3)}
+
+/* CTA dash animation */
+@keyframes dash{to{stroke-dashoffset:-16}}
+.edge-cta{animation:dash 1.4s linear infinite}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-l">
+    <span class="hdr-brand">Colégio Módulo · Campanha 2026</span>
+    <span class="hdr-title">Estrutura de Campanhas Pagas</span>
+  </div>
+  <span class="hdr-mid">Meta R$3.900/mês &nbsp;·&nbsp; Google R$7.800/mês &nbsp;·&nbsp; Total R$140.400/ano</span>
+  <span class="hdr-r">drag · scroll · <kbd>F</kbd> fit · <kbd>R</kbd> reset</span>
+</div>
+
+<div id="cvs">
+  <div id="world">
+    <svg id="svg" width="3500" height="1400"></svg>
+  </div>
+</div>
+
+<div class="hint">drag pra mover · scroll pra zoom · <strong>F</strong> ajusta à tela</div>
+<div class="ctrl">
+  <div class="ctrl-row">
+    <button class="btn" id="bfit">⛶ FIT</button>
+    <button class="btn" id="brst">↺ RESET</button>
+  </div>
+  <div class="ctrl-row">
+    <button class="btn" id="bminus">−</button>
+    <div id="zdsp">100%</div>
+    <button class="btn" id="bplus">+</button>
+  </div>
+</div>
+
+<script>
+const M='#1877F2', R='#EA4335', P='#4285F4', D='#9333EA',
+      G='#10B981', Au='#F59E0B', Pk='#EC4899', W='#22C55E';
+
+/* ── NODE DATA ── */
+const ND=[
+  // META platform
+  {id:'meta',x:390,y:28,w:460,h:82,nc:'nd-plat nd-meta',lbl:'META ADS',sub:'R$3.900/mês · 4 campanhas · Objetivo: Geração de Leads',c:M},
+
+  // META campaigns
+  {id:'m1',x:10,y:188,w:292,h:74,nc:'nd-camp',lbl:'Camp. 1 · Future Fest',sub:'CBO · R$1.755/mês',c:M},
+  {id:'m2',x:322,y:188,w:278,h:74,nc:'nd-camp',lbl:'Camp. 2 · Cultura Inglesa',sub:'CBO · R$975/mês',c:M},
+  {id:'m3',x:620,y:188,w:268,h:74,nc:'nd-camp',lbl:'Camp. 3 · Pré-Matrícula',sub:'CBO · R$1.170/mês',c:M},
+  {id:'m4',x:908,y:188,w:262,h:74,nc:'nd-camp',lbl:'Camp. 4 · Retargeting',sub:'ABO · R$1.170/mês',c:D},
+
+  // META ad sets
+  {id:'m1a',x:0,y:360,w:185,h:76,nc:'nd-set',lbl:'Awareness Vídeo',sub:'Raio 10km · Pais 28–48\nVídeo 15–30s · Future Fest',c:M},
+  {id:'m1b',x:195,y:360,w:175,h:76,nc:'nd-set',lbl:'Leads EF',sub:'Carrossel · Pais 28–45\nProjetos por série',c:M},
+  {id:'m1c',x:380,y:360,w:175,h:76,nc:'nd-set',lbl:'Leads EM',sub:'Feed/Stories · Pais 32–50\nCopy Cultura Inglesa',c:M},
+  {id:'m2a',x:565,y:360,w:210,h:76,nc:'nd-set',lbl:'Interesse Inglês',sub:'Raio 10km · Pais 28–50\nInglês incluso na mensalidade',c:M},
+  {id:'m3a',x:785,y:360,w:198,h:76,nc:'nd-set',lbl:'Lookalike 1–3%',sub:'Base de responsáveis\nPré-matrícula urgência',c:M},
+  {id:'m3b',x:993,y:360,w:198,h:76,nc:'nd-set',lbl:'Interesses Educação',sub:'Raio 10km\n"A condição que não volta"',c:M},
+  {id:'m4a',x:1201,y:360,w:192,h:76,nc:'nd-set',lbl:'Visitantes 30 dias',sub:'Pixel site\nBanner Future Fest',c:D},
+  {id:'m4b',x:1403,y:360,w:192,h:76,nc:'nd-set',lbl:'Abandono Form.',sub:'Pixel formulário\n"Você visitou o Módulo..."',c:D},
+
+  // GOOGLE platform
+  {id:'ggl',x:2060,y:28,w:470,h:82,nc:'nd-plat nd-google',lbl:'GOOGLE ADS',sub:'R$7.800/mês · 5 campanhas · Search + PMax + Display',c:R},
+
+  // GOOGLE campaigns
+  {id:'g1',x:1740,y:188,w:258,h:74,nc:'nd-camp',lbl:'Search Marca',sub:'CPA Desejado · R$2.340/mês',c:R},
+  {id:'g2',x:2018,y:188,w:272,h:74,nc:'nd-camp',lbl:'Search Intenção EF',sub:'Max. Conv. · R$1.950/mês',c:R},
+  {id:'g3',x:2310,y:188,w:270,h:74,nc:'nd-camp',lbl:'Search Intenção EM',sub:'Max. Conv. · R$1.170/mês',c:R},
+  {id:'g4',x:2600,y:188,w:235,h:74,nc:'nd-camp',lbl:'Performance Max',sub:'CPA Desejado · R$1.170/mês',c:P},
+  {id:'g5',x:2855,y:188,w:248,h:74,nc:'nd-camp',lbl:'Display Remarketing',sub:'R$1.170/mês',c:D},
+
+  // GOOGLE groups
+  {id:'g1a',x:1710,y:360,w:212,h:82,nc:'nd-set',lbl:'Grupo Marca Própria',sub:'"colégio módulo" + variações',c:R,bdg:['Exata','Frase','Ampla']},
+  {id:'g1b',x:1932,y:360,w:200,h:82,nc:'nd-set',lbl:'Grupo Concorrência',sub:'"escola inglês incluso sp"',c:R,bdg:['Exata','Frase']},
+  {id:'g2a',x:2142,y:360,w:210,h:82,nc:'nd-set',lbl:'Grupo Matrícula EF',sub:'"matrícula escola fundamental sp"',c:R,bdg:['Exata','Frase','Ampla']},
+  {id:'g2b',x:2362,y:360,w:200,h:82,nc:'nd-set',lbl:'Grupo Tecnologia',sub:'"escola projeto tecnológico sp"',c:R,bdg:['Frase','Ampla']},
+  {id:'g3a',x:2572,y:360,w:210,h:82,nc:'nd-set',lbl:'Grupo Matrícula EM',sub:'"colégio ensino médio sp"',c:R,bdg:['Exata','Frase','Ampla']},
+  {id:'g4a',x:2792,y:360,w:198,h:82,nc:'nd-set',lbl:'Assets Criativos',sub:'Vídeos Future Fest\nFotos · Headlines Cultura Inglesa',c:P},
+  {id:'g5a',x:3000,y:360,w:198,h:82,nc:'nd-set',lbl:'Visitantes 30 dias',sub:'Banner display\nRaio 10km',c:D},
+
+  // FUNNEL
+  {id:'lp',x:1430,y:600,w:370,h:92,nc:'nd-lp',lbl:'LANDING PAGE',sub:'Pré-Matrícula · Condição Especial de Pré-Matrícula',c:G},
+  {id:'wa',x:1500,y:774,w:278,h:72,nc:'nd-wa',lbl:'WhatsApp · Atendimento',sub:'Resposta em até 15 minutos',c:W},
+  {id:'mat',x:1478,y:924,w:318,h:92,nc:'nd-mat',lbl:'MATRÍCULA',sub:'Meta: 60–100 por ano · Custo/matrícula ~R$1.167',c:Au},
+  {id:'ind',x:1548,y:1096,w:236,h:70,nc:'nd-ind',lbl:'Indicação',sub:'Novas famílias · Retenção',c:Pk},
+];
+
+/* ── EDGE DATA ── */
+const ED=[
+  // meta hierarchy
+  {f:'meta',t:'m1'},{f:'meta',t:'m2'},{f:'meta',t:'m3'},{f:'meta',t:'m4'},
+  {f:'m1',t:'m1a'},{f:'m1',t:'m1b'},{f:'m1',t:'m1c'},
+  {f:'m2',t:'m2a'},{f:'m3',t:'m3a'},{f:'m3',t:'m3b'},
+  {f:'m4',t:'m4a'},{f:'m4',t:'m4b'},
+  // meta CTA → LP
+  {f:'m1a',t:'lp',k:'cta'},{f:'m1b',t:'lp',k:'cta'},{f:'m1c',t:'lp',k:'cta'},
+  {f:'m2a',t:'lp',k:'cta'},{f:'m3a',t:'lp',k:'cta'},{f:'m3b',t:'lp',k:'cta'},
+  {f:'m4a',t:'lp',k:'cta'},{f:'m4b',t:'lp',k:'cta'},
+  // google hierarchy
+  {f:'ggl',t:'g1'},{f:'ggl',t:'g2'},{f:'ggl',t:'g3'},{f:'ggl',t:'g4'},{f:'ggl',t:'g5'},
+  {f:'g1',t:'g1a'},{f:'g1',t:'g1b'},{f:'g2',t:'g2a'},{f:'g2',t:'g2b'},
+  {f:'g3',t:'g3a'},{f:'g4',t:'g4a'},{f:'g5',t:'g5a'},
+  // google CTA → LP
+  {f:'g1a',t:'lp',k:'cta'},{f:'g1b',t:'lp',k:'cta'},
+  {f:'g2a',t:'lp',k:'cta'},{f:'g2b',t:'lp',k:'cta'},
+  {f:'g3a',t:'lp',k:'cta'},{f:'g4a',t:'lp',k:'cta'},{f:'g5a',t:'lp',k:'cta'},
+  // funnel
+  {f:'lp',t:'wa',k:'fn'},{f:'wa',t:'mat',k:'fn'},{f:'mat',t:'ind',k:'fn'},
+];
+
+/* ── BUILD ── */
+const world=document.getElementById('world');
+const svg=document.getElementById('svg');
+const nm={};
+
+// zones
+const zones=[
+  {cls:'zone zone-meta',x:-15,y:10,w:1640,h:470,lbl:'META ADS'},
+  {cls:'zone zone-google',x:1690,y:10,w:1550,h:470,lbl:'GOOGLE ADS'},
+  {cls:'zone zone-funnel',x:1390,y:580,w:450,h:630,lbl:'FUNIL DE CONVERSÃO'},
+];
+zones.forEach(z=>{
+  const d=document.createElement('div');
+  d.className=z.cls;
+  d.style.cssText=`left:${z.x}px;top:${z.y}px;width:${z.w}px;height:${z.h}px;position:absolute`;
+  const lbl=document.createElement('span');
+  lbl.className='zone-label';
+  lbl.textContent=z.lbl;
+  d.appendChild(lbl);
+  world.insertBefore(d,svg);
+});
+
+// nodes
+ND.forEach(n=>{
+  const d=document.createElement('div');
+  d.className='nd '+n.nc;
+  d.id='n-'+n.id;
+  d.style.cssText=`left:${n.x}px;top:${n.y}px;width:${n.w}px;min-height:${n.h}px;
+    border-color:${n.c}55;box-shadow:0 0 18px ${n.c}1a`;
+  let bdgHTML='';
+  if(n.bdg){
+    bdgHTML='<div class="badges">'+n.bdg.map(b=>
+      `<span class="bdg" style="background:${n.c}22;color:${n.c};border:1px solid ${n.c}44">${b}</span>`
+    ).join('')+'</div>';
+  }
+  d.innerHTML=`<div class="nd-lbl" style="color:${n.c}">${n.lbl}</div>`+
+              `<div class="nd-sub">${n.sub}</div>`+bdgHTML;
+  world.appendChild(d);
+  nm[n.id]=n;
+});
+
+/* ── DEFS / MARKERS ── */
+const defs=document.createElementNS('http://www.w3.org/2000/svg','defs');
+[[M,'bl'],[R,'rd'],[G,'gn'],[Au,'au'],[Pk,'pk'],['rgba(255,255,255,.25)','wh']].forEach(([c,id])=>{
+  const mk=document.createElementNS('http://www.w3.org/2000/svg','marker');
+  mk.setAttribute('id','a-'+id);
+  mk.setAttribute('markerWidth','7');mk.setAttribute('markerHeight','7');
+  mk.setAttribute('refX','5');mk.setAttribute('refY','3.5');mk.setAttribute('orient','auto');
+  const p=document.createElementNS('http://www.w3.org/2000/svg','path');
+  p.setAttribute('d','M0,0 L0,7 L7,3.5 z');p.setAttribute('fill',c);
+  mk.appendChild(p);defs.appendChild(mk);
+});
+svg.appendChild(defs);
+
+/* ── DRAW EDGES ── */
+function bot(n){return{x:n.x+n.w/2,y:n.y+n.h}}
+function top(n){return{x:n.x+n.w/2,y:n.y}}
+
+ED.forEach(e=>{
+  const fn=nm[e.f],tn=nm[e.t];
+  if(!fn||!tn)return;
+  const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+
+  const isM=['meta','m1','m2','m3','m4','m1a','m1b','m1c','m2a','m3a','m3b','m4a','m4b'].includes(e.f);
+  const isG=['ggl','g1','g2','g3','g4','g5','g1a','g1b','g2a','g2b','g3a','g4a','g5a'].includes(e.f);
+
+  let stroke,mkr,op,sw,da;
+  if(e.k==='fn'){
+    stroke=e.f==='lp'?G:e.f==='wa'?Au:Pk;
+    mkr=`url(#a-${e.f==='lp'?'gn':'au'})`;op=.9;sw=2.5;
+  } else if(e.k==='cta'){
+    stroke=isM?M:R; mkr=`url(#a-${isM?'bl':'rd'})`; op=.22; sw=1.5; da='6 5';
+  } else if(isM){
+    stroke=M;mkr='url(#a-bl)';op=.55;sw=1.8;
+  } else if(isG){
+    stroke=R;mkr='url(#a-rd)';op=.55;sw=1.8;
+  } else {
+    stroke='rgba(255,255,255,.2)';mkr='url(#a-wh)';op=.4;sw=1.5;
+  }
+
+  const fr=bot(fn),to=top(tn);
+  let d;
+  if(e.k==='cta'){
+    const cy1=fr.y+80,cy2=to.y-80;
+    d=`M${fr.x},${fr.y} C${fr.x},${cy1} ${to.x},${cy2} ${to.x},${to.y}`;
+    const cls=document.createElementNS('http://www.w3.org/2000/svg','path');
+    cls.setAttribute('d',d);cls.setAttribute('stroke',stroke);
+    cls.setAttribute('stroke-width',sw);cls.setAttribute('fill','none');
+    cls.setAttribute('stroke-dasharray','6 5');
+    cls.setAttribute('stroke-dashoffset','0');
+    cls.setAttribute('opacity',op);cls.setAttribute('marker-end',mkr);
+    cls.setAttribute('class','edge-cta');
+    svg.appendChild(cls);return;
+  } else if(e.k==='fn'){
+    d=`M${fr.x},${fr.y} L${to.x},${to.y}`;
+  } else {
+    const mid=(fr.y+to.y)/2;
+    d=`M${fr.x},${fr.y} C${fr.x},${mid} ${to.x},${mid} ${to.x},${to.y}`;
+  }
+
+  path.setAttribute('d',d);path.setAttribute('stroke',stroke);
+  path.setAttribute('stroke-width',sw);path.setAttribute('fill','none');
+  path.setAttribute('opacity',op);path.setAttribute('marker-end',mkr);
+  svg.appendChild(path);
+});
+
+/* ── CANVAS INTERACTIONS ── */
+const cvs=document.getElementById('cvs');
+let tx=0,ty=0,sc=1,drag=false,lx,ly;
+
+function apply(){
+  world.style.transform=`translate(${tx}px,${ty}px) scale(${sc})`;
+  document.getElementById('zdsp').textContent=Math.round(sc*100)+'%';
+}
+
+function fit(){
+  const W=3300,H=1250,cw=cvs.clientWidth,ch=cvs.clientHeight;
+  sc=Math.min(cw/W,ch/H)*.9;
+  tx=(cw-W*sc)/2; ty=(ch-H*sc)/2; apply();
+}
+function reset(){tx=30;ty=40;sc=1;apply();}
+
+fit();
+
+cvs.addEventListener('mousedown',e=>{
+  if(e.target.closest('.nd'))return;
+  drag=true;lx=e.clientX;ly=e.clientY;cvs.classList.add('drag');
+});
+window.addEventListener('mousemove',e=>{
+  if(!drag)return;
+  tx+=e.clientX-lx;ty+=e.clientY-ly;lx=e.clientX;ly=e.clientY;apply();
+});
+window.addEventListener('mouseup',()=>{drag=false;cvs.classList.remove('drag');});
+
+cvs.addEventListener('wheel',e=>{
+  e.preventDefault();
+  const r=cvs.getBoundingClientRect();
+  const mx=e.clientX-r.left,my=e.clientY-r.top;
+  const f=e.deltaY<0?1.12:.88;
+  const ns=Math.max(.08,Math.min(4,sc*f));
+  tx=mx-(mx-tx)*ns/sc;ty=my-(my-ty)*ns/sc;sc=ns;apply();
+},{passive:false});
+
+// touch
+let ld=0,tcs=[];
+cvs.addEventListener('touchstart',e=>{
+  tcs=Array.from(e.touches);
+  if(tcs.length===1){lx=tcs[0].clientX;ly=tcs[0].clientY;}
+  if(tcs.length===2){
+    const dx=tcs[0].clientX-tcs[1].clientX,dy=tcs[0].clientY-tcs[1].clientY;
+    ld=Math.sqrt(dx*dx+dy*dy);
+  }
+},{passive:true});
+cvs.addEventListener('touchmove',e=>{
+  e.preventDefault();tcs=Array.from(e.touches);
+  if(tcs.length===1){
+    tx+=tcs[0].clientX-lx;ty+=tcs[0].clientY-ly;
+    lx=tcs[0].clientX;ly=tcs[0].clientY;apply();
+  }
+  if(tcs.length===2){
+    const dx=tcs[0].clientX-tcs[1].clientX,dy=tcs[0].clientY-tcs[1].clientY;
+    const d=Math.sqrt(dx*dx+dy*dy);
+    sc=Math.max(.08,Math.min(4,sc*d/ld));ld=d;apply();
+  }
+},{passive:false});
+
+window.addEventListener('keydown',e=>{
+  if(e.key==='f'||e.key==='F')fit();
+  if(e.key==='r'||e.key==='R')reset();
+  if(e.key==='0'){sc=1;tx=30;ty=40;apply();}
+});
+
+function zoom(dir){
+  const f=dir>0?1.2:.83;
+  const ns=Math.max(.08,Math.min(4,sc*f));
+  tx=cvs.clientWidth/2-(cvs.clientWidth/2-tx)*ns/sc;
+  ty=cvs.clientHeight/2-(cvs.clientHeight/2-ty)*ns/sc;
+  sc=ns;apply();
+}
+
+document.getElementById('bfit').onclick=fit;
+document.getElementById('brst').onclick=reset;
+document.getElementById('bplus').onclick=()=>zoom(1);
+document.getElementById('bminus').onclick=()=>zoom(-1);
+</script>
+</body>
+</html>
