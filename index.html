@@ -4,36 +4,37 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fluxo Operacional 2026 · Colégio Módulo</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#070B14;overflow:hidden;width:100vw;height:100vh;font-family:system-ui,-apple-system,sans-serif}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(rgba(255,255,255,.055) 1px,transparent 1px);background-size:26px 26px;pointer-events:none}
-.hdr{position:fixed;top:0;left:0;right:0;height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:rgba(7,11,20,.92);border-bottom:1px solid rgba(255,255,255,.1);z-index:100}
-.ht{font-size:14px;font-weight:700;color:#E2E8F0}
-.hs{font-size:10px;color:#64748B;font-family:monospace}
-.hh{font-size:10px;color:rgba(100,116,139,.45);font-family:monospace}
-#cvs{position:fixed;top:50px;left:0;right:0;bottom:0;overflow:hidden;cursor:grab}
+body{background:#E8E4E4;overflow:hidden;width:100vw;height:100vh;font-family:'DM Sans',system-ui,sans-serif}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(rgba(0,0,0,.04) 1px,transparent 1px);background-size:24px 24px;pointer-events:none}
+.hdr{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:#FFFFFF;border-bottom:2px solid #ED145B;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.ht{font-size:14px;font-weight:700;color:#1A1D20;letter-spacing:.01em}
+.hs{font-size:10px;color:#616D72;letter-spacing:.06em;text-transform:uppercase}
+.hh{font-size:10px;color:#AAAAAA;font-family:monospace}
+#cvs{position:fixed;top:52px;left:0;right:0;bottom:0;overflow:hidden;cursor:grab}
 #cvs.drag{cursor:grabbing}
 #w{position:absolute;top:0;left:0;transform-origin:0 0}
-.nd{position:absolute;border-radius:9px;padding:8px 11px;border:1px solid}
-.nd:hover{filter:brightness(1.08);z-index:50}
-.nl{font-size:11px;font-weight:700;line-height:1.25;margin-bottom:2px}
-.ns{font-size:8.5px;line-height:1.4;color:#94A3B8;font-family:monospace}
+.nd{position:absolute;border-radius:8px;padding:9px 12px;border:1px solid #D0CCC8;background:#FFFFFF;box-shadow:0 1px 3px rgba(0,0,0,.06);transition:box-shadow .12s,transform .12s}
+.nd:hover{box-shadow:0 4px 12px rgba(0,0,0,.12);transform:translateY(-1px);z-index:50}
+.nl{font-size:11px;font-weight:600;line-height:1.25;margin-bottom:2px;color:#1A1D20}
+.ns{font-size:8.5px;line-height:1.45;color:#616D72}
 .ctrl{position:fixed;bottom:18px;right:18px;z-index:100;display:flex;gap:5px;align-items:center}
-.btn{height:32px;padding:0 11px;border-radius:7px;border:1px solid rgba(255,255,255,.14);background:rgba(7,11,20,.9);color:#94A3B8;font-size:11px;font-family:monospace;cursor:pointer}
-.btn:hover{color:#E2E8F0;border-color:rgba(255,255,255,.28)}
-#zd{height:32px;padding:0 10px;border-radius:7px;border:1px solid rgba(255,255,255,.14);background:rgba(7,11,20,.9);color:#94A3B8;font-size:11px;font-family:monospace;display:flex;align-items:center;min-width:52px;justify-content:center}
-.hint{position:fixed;bottom:18px;left:18px;font-size:10px;color:rgba(100,116,139,.35);font-family:monospace;z-index:100}
+.btn{height:32px;padding:0 12px;border-radius:7px;border:1px solid #D0CCC8;background:#FFFFFF;color:#616D72;font-size:11px;font-family:'DM Sans',sans-serif;cursor:pointer;font-weight:500}
+.btn:hover{border-color:#ED145B;color:#ED145B}
+#zd{height:32px;padding:0 10px;border-radius:7px;border:1px solid #D0CCC8;background:#FFFFFF;color:#616D72;font-size:11px;font-family:'DM Sans',sans-serif;display:flex;align-items:center;min-width:52px;justify-content:center;font-weight:500}
+.hint{position:fixed;bottom:18px;left:18px;font-size:10px;color:#AAAAAA;font-family:monospace;z-index:100}
 </style>
 </head>
 <body>
 <div class="hdr">
-  <span class="ht">Colégio Módulo — Fluxo Operacional Completo 2026</span>
-  <span class="hs">Meta 5 camps · Google 5 camps · LP por produto · Site Institucional · CRM Kommo · WhatsApp · Matrícula</span>
+  <span class="ht">Colégio Módulo — Fluxo Operacional de Campanhas 2026</span>
+  <span class="hs">Meta · 6 campanhas · Google · 5 campanhas · CRM Kommo</span>
   <span class="hh">drag · scroll · F fit · R reset</span>
 </div>
 <div id="cvs"><div id="w">
-  <svg id="svg" style="position:absolute;top:0;left:0;overflow:visible;pointer-events:none" width="9000" height="6500"></svg>
+  <svg id="svg" style="position:absolute;top:0;left:0;overflow:visible;pointer-events:none" width="9000" height="7000"></svg>
 </div></div>
 <div class="hint">drag · scroll · <b>F</b> fit · <b>R</b> reset</div>
 <div class="ctrl">
@@ -43,174 +44,119 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(rgba(2
   <button class="btn" id="bp">+</button>
 </div>
 <script>
-var BL='#1877F2',RD='#EA4335',PX='#4285F4',DP='#9333EA',GN='#10B981',AU='#F59E0B',PK='#EC4899',WA='#22C55E',OR='#F97316',TE='#14B8A6',CR='#6366F1';
+var MG='#ED145B',CN='#25DBEF',VA='#00FFD9',RX='#915EF9',RP='#5A008C',
+    RD='#EA4335',PX='#4285F4',GN='#059669',AU='#D97706',WA='#16A34A';
 var w=document.getElementById('w'),svg=document.getElementById('svg'),nm={};
 var ND=[],ED=[];
-
-function nd(id,x,y,w,h,lbl,sub,c,opts){
-  var n={id:id,x:x,y:y,w:w,h:h,lbl:lbl,sub:sub,c:c};
-  if(opts)Object.keys(opts).forEach(function(k){n[k]=opts[k];});
-  ND.push(n);return n;
-}
+function nd(id,x,y,w,h,lbl,sub,c,opts){var n={id:id,x:x,y:y,w:w,h:h,lbl:lbl,sub:sub,c:c};if(opts)Object.keys(opts).forEach(function(k){n[k]=opts[k];});ND.push(n);return n;}
 function ed(f,t,k){ED.push({f:f,t:t,k:k||''});}
-
-// COLUMNS
-var X1=30,X2=240,X3=460,X4=680,X5=895,X6=1120,X7=1355,X8=1580,X9=1800;
-var NW=175,NH=52,CRW=155,CRH=40;
-
-var CRTYPES=[
-  {lbl:'Video Curto 1',sub:'Reels 15-30s'},
-  {lbl:'Video Curto 2',sub:'Reels 15-30s'},
-  {lbl:'Imagem Estatica 1',sub:'Feed square'},
-  {lbl:'Imagem Estatica 2',sub:'Feed square'},
-  {lbl:'Carrossel',sub:'Feed multiplas imgs'},
-  {lbl:'Stories Vertical',sub:'9:16 stories'},
-];
-
-// ── SHARED FUNNEL ──────────────────────────────────────────────────────
-var YF=2450;
-nd('crm', X6,YF,    185,66,'CRM · Kommo',     'Time Comercial · Atendimento',CR,{sp:'crm',big:1});
-nd('wha', X7,YF+8,  178,52,'WhatsApp',         'Contato direto · Time comercial',WA,{sp:'wha'});
-nd('mat', X8,YF+8,  178,68,'MATRICULA',         'Meta: 60-100/ano',AU,{sp:'mat',big:1});
-nd('ind', X9,YF+16, 168,52,'Indicacao',         'Retencao · Novas familias',PK,{sp:'ind'});
-ed('crm','wha','fn'); ed('wha','mat','fn'); ed('mat','ind','fn');
-
-// ── META ──────────────────────────────────────────────────────────────
-nd('meta',X1,YF-10,155,72,'META ADS','R$3.900/mes\n5 campanhas',BL,{big:1,plat:1});
-
-function metaCamp(campId,campLbl,campSub,conjData,campY,lpId,lpLbl){
-  nd(campId,X2,campY,NW,NH,campLbl,campSub,BL,{big:1});
-  ed('meta',campId);
-  nd(lpId,X5,campY+NH/2-18,158,50,lpLbl,'LP dedicada',GN,{sp:'lp'});
-  ed(lpId,'crm','fn');
-  conjData.forEach(function(conj,ci){
-    var cy=campY+ci*320;
-    var cId=campId+'_c'+ci;
-    nd(cId,X3,cy,NW,NH,conj.lbl,conj.sub,conj.c);
-    ed(campId,cId);
-    CRTYPES.forEach(function(cr,cri){
-      var crId=cId+'_cr'+cri;
-      nd(crId,X4,cy+cri*50,CRW,CRH,cr.lbl,cr.sub,conj.c,{cr:1});
-      ed(cId,crId); ed(crId,lpId,'cta');
-    });
-  });
+var X1=30,X2=240,X3=460,X4=675,X5=885,X6=1110,X7=1340,X8=1565,X9=1785;
+var NW=178,NH=54,CRW=158,CRH=42;
+var CRT=[{lbl:'Video Curto 1',sub:'Reels 15-30s'},{lbl:'Video Curto 2',sub:'Reels 15-30s'},{lbl:'Imagem Estatica 1',sub:'Feed square'},{lbl:'Imagem Estatica 2',sub:'Feed square'},{lbl:'Carrossel',sub:'Feed multiplas imgs'},{lbl:'Stories Vertical',sub:'9:16 stories'}];
+// FUNIL
+var YF=2100;
+nd('crm',X6,YF,190,66,'CRM · Kommo','Time Comercial · Atendimento',RP,{sp:'crm',big:1});
+nd('wha',X7,YF+8,178,52,'WhatsApp','Contato direto · Time comercial',WA,{sp:'wha'});
+nd('mat',X8,YF+8,178,68,'MATRICULA','Meta: 60-100/ano',MG,{sp:'mat',big:1});
+nd('ind',X9,YF+16,168,52,'Indicacao','Retencao · Novas familias',RX,{sp:'ind'});
+ed('crm','wha','fn');ed('wha','mat','fn');ed('mat','ind','fn');
+// META
+nd('meta',X1,YF-10,158,72,'META ADS','R$3.900/mes · 6 campanhas',MG,{big:1,plat:'meta'});
+function metaCamp(cId,cLbl,cSub,cY,lpId,lpLbl){
+  nd(cId,X2,cY,NW,NH,cLbl,cSub,MG,{big:1});ed('meta',cId);
+  nd(lpId,X5,cY+NH/2-16,160,50,lpLbl,'LP dedicada',GN,{sp:'lp'});ed(lpId,'crm','fn');
+  var cy1=cY,cj1=cId+'_ci';
+  nd(cj1,X3,cy1,NW,NH,'Conj. Cultura Inglesa','Ingles incluso · Raio 10km',CN);ed(cId,cj1);
+  CRT.forEach(function(cr,i){var crId=cj1+'_cr'+i;nd(crId,X4,cy1+i*50,CRW,CRH,cr.lbl,cr.sub,CN,{cr:1});ed(cj1,crId);ed(crId,lpId,'cta');});
+  var cy2=cY+330,cj2=cId+'_inst';
+  nd(cj2,X3,cy2,NW,NH,'Conj. Institucional','Estrutura + Videos do Evento\nDiferenciais · Raio 10km',MG);ed(cId,cj2);
+  CRT.forEach(function(cr,i){var crId=cj2+'_cr'+i;nd(crId,X4,cy2+i*50,CRW,CRH,cr.lbl,cr.sub,MG,{cr:1});ed(cj2,crId);ed(crId,lpId,'cta');});
 }
-
-metaCamp('c1','Camp.1 · EF I','Fund. I · CBO',[
-  {lbl:'Conj. Cultura Inglesa',sub:'Ingles incluso · 10km',c:TE},
-  {lbl:'Conj. Future Fest',sub:'Projetos tecnologicos',c:AU},
-  {lbl:'Conj. Institucional',sub:'Estrutura · Diferenciais',c:OR},
-],0,'lp1','LP EF I');
-
-metaCamp('c2','Camp.2 · EF II','Fund. II · CBO',[
-  {lbl:'Conj. Cultura Inglesa',sub:'Ingles incluso · 10km',c:TE},
-  {lbl:'Conj. Future Fest',sub:'Projetos tecnologicos',c:AU},
-  {lbl:'Conj. Institucional',sub:'Estrutura · Diferenciais',c:OR},
-],1020,'lp2','LP EF II');
-
-metaCamp('c3','Camp.3 · Ens.Medio','Ens. Medio · CBO',[
-  {lbl:'Conj. Cultura Inglesa',sub:'Ingles incluso · 10km',c:TE},
-  {lbl:'Conj. Future Fest',sub:'Projetos tecnologicos',c:AU},
-  {lbl:'Conj. Institucional',sub:'Estrutura · Diferenciais',c:OR},
-],2040,'lp3','LP Ens. Medio');
-
+metaCamp('c1','Camp.1 · EF I','Fund. I · CBO',0,'lp1','LP EF I');
+metaCamp('c2','Camp.2 · EF II','Fund. II · CBO',690,'lp2','LP EF II');
+metaCamp('c3','Camp.3 · Ens.Medio','Ens. Medio · CBO',1380,'lp3','LP Ens. Medio');
 // REMARKETING
-var rmkY=3100;
-nd('c4',X2,rmkY,NW,NH,'Camp.4 · Remarketing','Pixel · 30 dias · Reimpacto',DP,{big:1});
-ed('meta','c4');
-[
-  {id:'c4_c0',lbl:'Conj. EF I', lpId:'lp1',src:'c1',top:'Top 3 · Melhor Desempenho EF I',  tsub:'3 criativos campeoes Camp. EF I'},
-  {id:'c4_c1',lbl:'Conj. EF II',lpId:'lp2',src:'c2',top:'Top 3 · Melhor Desempenho EF II', tsub:'3 criativos campeoes Camp. EF II'},
-  {id:'c4_c2',lbl:'Conj. EM',   lpId:'lp3',src:'c3',top:'Top 3 · Melhor Desempenho EM',    tsub:'3 criativos campeoes Camp. Ens. Medio'},
+var rmkY=2090;
+nd('c4',X2,rmkY,NW,NH,'Camp.4 · Remarketing','Pixel · 30 dias · Reimpacto',RX,{big:1});ed('meta','c4');
+[{id:'c4_c0',lbl:'Conj. EF I',lpId:'lp1',src:'c1',top:'Top 3 · Melhor Desempenho EF I',tsub:'3 criativos campeoes Camp. EF I'},
+ {id:'c4_c1',lbl:'Conj. EF II',lpId:'lp2',src:'c2',top:'Top 3 · Melhor Desempenho EF II',tsub:'3 criativos campeoes Camp. EF II'},
+ {id:'c4_c2',lbl:'Conj. EM',lpId:'lp3',src:'c3',top:'Top 3 · Melhor Desempenho EM',tsub:'3 criativos campeoes Camp. Ens. Medio'}
 ].forEach(function(r,ri){
-  nd(r.id,X3,rmkY+ri*180,NW,NH,r.lbl,'Visitantes LP · 30 dias',DP);
-  ed('c4',r.id);
-  nd(r.id+'_top',X4,rmkY+ri*180,CRW+10,NH+10,r.top,r.tsub,DP,{cr:1,top:1});
-  ed(r.id,r.id+'_top');
-  ed(r.id+'_top',r.lpId,'cta');
-  ed(r.src,r.id,'feed');
+  nd(r.id,X3,rmkY+ri*170,NW,NH,r.lbl,'Visitantes LP · 30 dias',RX);ed('c4',r.id);
+  nd(r.id+'_top',X4,rmkY+ri*170,CRW+10,NH+12,r.top,r.tsub,RX,{cr:1,top:1});
+  ed(r.id,r.id+'_top');ed(r.id+'_top',r.lpId,'cta');ed(r.src,r.id,'feed');
 });
-
 // LOOKALIKE
-var lkY=3700;
-nd('c5',X2,lkY,NW,NH,'Camp.5 · Lookalike','Responsaveis similares · Frio',PK,{big:1});
-ed('meta','c5');
-nd('form',X5,lkY+80,158,50,'Form. Nativo Meta','Lead direto plataforma',PK,{sp:'form'});
-ed('form','crm','fn');
-[
-  {id:'c5_c0',src:'c1',top:'Top 3 · Melhor Desempenho EF I',  tsub:'3 criativos campeoes Camp. EF I'},
-  {id:'c5_c1',src:'c2',top:'Top 3 · Melhor Desempenho EF II', tsub:'3 criativos campeoes Camp. EF II'},
-  {id:'c5_c2',src:'c3',top:'Top 3 · Melhor Desempenho EM',    tsub:'3 criativos campeoes Camp. Ens. Medio'},
+var lkY=2640;
+nd('c5',X2,lkY,NW,NH,'Camp.5 · Lookalike','Responsaveis similares · Frio',RX,{big:1});ed('meta','c5');
+nd('form',X5,lkY+70,160,50,'Form. Nativo Meta','Lead direto plataforma',RX,{sp:'form'});ed('form','crm','fn');
+[{src:'c1',top:'Top 3 · Melhor Desempenho EF I',tsub:'3 criativos campeoes Camp. EF I'},
+ {src:'c2',top:'Top 3 · Melhor Desempenho EF II',tsub:'3 criativos campeoes Camp. EF II'},
+ {src:'c3',top:'Top 3 · Melhor Desempenho EM',tsub:'3 criativos campeoes Camp. Ens. Medio'}
 ].forEach(function(r,ri){
-  var lbl=['Conj. EF I','Conj. EF II','Conj. EM'][ri];
-  nd(r.id,X3,lkY+ri*180,NW,NH,lbl,'Lookalike 1-3%\nFormulario nativo',PK);
-  ed('c5',r.id);
-  nd(r.id+'_top',X4,lkY+ri*180,CRW+10,NH+10,r.top,r.tsub,PK,{cr:1,top:1});
-  ed(r.id,r.id+'_top');
-  ed(r.id+'_top','form','cta');
-  ed(r.src,r.id,'feed');
+  var id='c5_c'+ri,lbl=['Conj. EF I','Conj. EF II','Conj. EM'][ri];
+  nd(id,X3,lkY+ri*170,NW,NH,lbl,'Lookalike 1-3%\nFormulario nativo',RX);ed('c5',id);
+  nd(id+'_top',X4,lkY+ri*170,CRW+10,NH+12,r.top,r.tsub,RX,{cr:1,top:1});
+  ed(id,id+'_top');ed(id+'_top','form','cta');ed(r.src,id,'feed');
 });
-
-// ── GOOGLE ────────────────────────────────────────────────────────────
-var GY=4520;
-nd('ggl',X1,GY+150,155,72,'GOOGLE ADS','R$7.800/mes\n5 campanhas',RD,{big:1,plat:1});
-
-// Search campaigns: Camp → Group → LP → CRM
+// CAMP 6 - FORMULARIO NATIVO
+var fnY=3200;
+nd('c6',X2,fnY,NW,NH,'Camp.6 · Form. Nativo','Conversao direta · 3 conjuntos',CN,{big:1});ed('meta','c6');
+nd('form2',X5,fnY+60,160,50,'Formulario Nativo Meta','Lead direto na plataforma',CN,{sp:'form2'});ed('form2','crm','fn');
+['EF I','EF II','Ens. Medio'].forEach(function(prod,pi){
+  var id='c6_c'+pi;
+  nd(id,X3,fnY+pi*130,NW,NH,'Conj. '+prod,'Form. nativo · Raio 10km\nPublico por produto',CN);
+  ed('c6',id);ed(id,'form2','cta');
+});
+// GOOGLE
+var GY=3760;
+nd('ggl',X1,GY+150,158,72,'GOOGLE ADS','R$7.800/mes · 5 campanhas',RD,{big:1,plat:'google'});
 function gSearch(id,cl,cs,gl,gs,lpId,lpLbl,gy){
-  nd(id,X2,gy,NW,NH,cl,cs,RD,{big:1}); ed('ggl',id);
-  nd(id+'_g',X3,gy+6,NW,NH,gl,gs,RD); ed(id,id+'_g');
-  nd(lpId,X5,gy+6,158,50,lpLbl,'LP dedicada Google',GN,{sp:'lp'});
-  ed(id+'_g',lpId,'cta');
-  ed(lpId,'crm','fn');
+  nd(id,X2,gy,NW,NH,cl,cs,RD,{big:1});ed('ggl',id);
+  nd(id+'_g',X3,gy+6,NW,NH,gl,gs,RD);ed(id,id+'_g');
+  nd(lpId,X5,gy+6,160,50,lpLbl,'LP dedicada Google',GN,{sp:'lp'});
+  ed(id+'_g',lpId,'cta');ed(lpId,'crm','fn');
 }
-gSearch('g1','Search · EF I',    'Max.Conv. · R$2.340','Grupo Matricula EF I', '[Exata][Frase][Ampla]','glp1','LP EF I · Google', GY+0);
-gSearch('g2','Search · EF II',   'Max.Conv. · R$1.950','Grupo Matricula EF II','[Exata][Frase][Ampla]','glp2','LP EF II · Google',GY+130);
-gSearch('g3','Search · Ens.Medio','Max.Conv. · R$1.170','Grupo Matricula EM',  '[Exata][Frase][Ampla]','glp3','LP EM · Google',   GY+260);
-
-// PMax + Search Institucional → Site → Form/WA → CRM
-nd('g4',X2,GY+400,NW,NH,'Performance Max',     'CPA Desejado · R$1.170',PX,{big:1}); ed('ggl','g4');
-nd('g4g',X3,GY+406,NW,NH,'Assets Criativos',   'Videos · Fotos · Headlines',PX);     ed('g4','g4g');
-nd('g5',X2,GY+520,NW,NH,'Search · Institucional','CPA Desejado · R$1.170',RD,{big:1}); ed('ggl','g5');
-nd('g5g',X3,GY+526,NW,NH,'Grupo Institucional', '[Exata][Frase]',RD);                 ed('g5','g5g');
-
+gSearch('g1','Search · EF I','Max.Conv. · R$2.340','Grupo Matricula EF I','[Exata][Frase][Ampla]','glp1','LP EF I · Google',GY+0);
+gSearch('g2','Search · EF II','Max.Conv. · R$1.950','Grupo Matricula EF II','[Exata][Frase][Ampla]','glp2','LP EF II · Google',GY+130);
+gSearch('g3','Search · Ens.Medio','Max.Conv. · R$1.170','Grupo Matricula EM','[Exata][Frase][Ampla]','glp3','LP EM · Google',GY+260);
+nd('g4',X2,GY+400,NW,NH,'Performance Max','CPA Desejado · R$1.170',PX,{big:1});ed('ggl','g4');
+nd('g4g',X3,GY+406,NW,NH,'Assets Criativos','Videos · Fotos · Headlines',PX);ed('g4','g4g');
+nd('g5',X2,GY+520,NW,NH,'Search · Institucional','CPA Desejado · R$1.170',RD,{big:1});ed('ggl','g5');
+nd('g5g',X3,GY+526,NW,NH,'Grupo Institucional','[Exata][Frase]',RD);ed('g5','g5g');
 nd('gsite',X5,GY+456,185,52,'Site Institucional','colegiomodulo.com.br\nPai escolhe o produto',AU,{sp:'site'});
-ed('g4g','gsite','cta'); ed('g5g','gsite','cta');
-
-nd('gsf',X6-15,GY+420,172,46,'Form. de Contato','Nome + Telefone → CRM',GN,{sp:'gform'});
-nd('gswa',X6-15,GY+478,172,46,'WhatsApp Direto','Botao WA → CRM',WA,{sp:'gwa'});
-ed('gsite','gsf','fn'); ed('gsite','gswa','fn');
-ed('gsf','crm','fn');   ed('gswa','crm','fn');
-
-// ── BUILD DOM ──────────────────────────────────────────────────────────
+ed('g4g','gsite','cta');ed('g5g','gsite','cta');
+nd('gsf',X6-10,GY+456,175,52,'Form. de Contato','Nome + Telefone → CRM',GN,{sp:'gform'});
+ed('gsite','gsf','fn');ed('gsf','crm','fn');
+// DOM
 ND.forEach(function(n){
   nm[n.id]=n;
   var d=document.createElement('div');d.className='nd';
   d.style.left=n.x+'px';d.style.top=n.y+'px';d.style.width=n.w+'px';d.style.minHeight=n.h+'px';
-  var bg,bc,bs='none';
-  if(n.sp=='lp'){bg='rgba(16,185,129,.13)';bc='rgba(16,185,129,.52)';}
-  else if(n.sp=='crm'){bg='rgba(99,102,241,.14)';bc='rgba(99,102,241,.55)';bs='0 0 12px rgba(99,102,241,.2)';}
-  else if(n.sp=='wha'){bg='rgba(34,197,94,.12)';bc='rgba(34,197,94,.5)';bs='0 0 10px rgba(34,197,94,.18)';}
-  else if(n.sp=='mat'){bg='rgba(245,158,11,.13)';bc='rgba(245,158,11,.55)';bs='0 0 12px rgba(245,158,11,.2)';}
-  else if(n.sp=='ind'){bg='rgba(236,72,153,.08)';bc='rgba(236,72,153,.4)';}
-  else if(n.sp=='form'||n.sp=='gform'){bg='rgba(236,72,153,.1)';bc='rgba(236,72,153,.44)';}
-  else if(n.sp=='site'){bg='rgba(245,158,11,.1)';bc='rgba(245,158,11,.5)';bs='0 0 10px rgba(245,158,11,.15)';}
-  else if(n.sp=='gwa'){bg='rgba(34,197,94,.1)';bc='rgba(34,197,94,.45)';}
-  else if(n.plat){bg='rgba(255,255,255,.06)';bc=n.c+'66';bs='0 0 14px '+n.c+'1a';}
-  else if(n.top){bg='rgba(255,255,255,.03)';bc=n.c+'55';bs='0 0 6px '+n.c+'18';}
-  else if(n.cr){bg='rgba(255,255,255,.018)';bc=n.c+'38';}
-  else if(n.big){bg='rgba(255,255,255,.04)';bc=n.c+'55';}
-  else{bg='rgba(255,255,255,.025)';bc=n.c+'44';}
-  d.style.background=bg;d.style.borderColor=bc;d.style.boxShadow=bs;
+  var bc='#D0CCC8',bs='0 1px 3px rgba(0,0,0,.06)';
+  if(n.sp=='lp'){d.style.background='#F0FDF9';bc=GN+'88';}
+  else if(n.sp=='crm'){d.style.background='#F5F0FF';bc=RP+'88';bs='0 2px 8px '+RP+'22';}
+  else if(n.sp=='wha'){d.style.background='#F0FDF4';bc=WA+'77';}
+  else if(n.sp=='mat'){d.style.background='#FFF0F5';bc=MG+'88';bs='0 2px 8px '+MG+'22';}
+  else if(n.sp=='ind'){d.style.background='#F8F0FF';bc=RX+'66';}
+  else if(n.sp=='form'||n.sp=='form2'){d.style.background='#F0FAFF';bc=CN+'88';}
+  else if(n.sp=='site'){d.style.background='#FFFBF0';bc=AU+'88';}
+  else if(n.sp=='gform'){d.style.background='#F0FDF9';bc=GN+'77';}
+  else if(n.plat=='meta'){d.style.background='#FFF0F5';bc=MG+'66';bs='0 2px 10px '+MG+'18';}
+  else if(n.plat=='google'){d.style.background='#FFF5F5';bc=RD+'55';bs='0 2px 10px '+RD+'18';}
+  else if(n.top){d.style.background='#FAFAFA';bc=n.c+'55';bs='0 1px 4px '+n.c+'22';}
+  else if(n.cr){d.style.background='#F7F7F7';bc='#E0DEDD';}
+  else if(n.big){var bgm={};bgm[MG]='#FFF5F8';bgm[RD]='#FFF5F5';bgm[PX]='#F0F5FF';bgm[RX]='#F8F0FF';bgm[CN]='#F0FAFF';d.style.background=bgm[n.c]||'#F8F8F8';bc=n.c+'66';}
+  d.style.borderColor=bc;d.style.boxShadow=bs;
   var lbl=document.createElement('div');lbl.className='nl';lbl.style.color=n.c;
-  if(n.plat)lbl.style.fontSize='12px';lbl.textContent=n.lbl;
+  if(n.plat)lbl.style.fontSize='13px';lbl.textContent=n.lbl;
   var sub=document.createElement('div');sub.className='ns';sub.textContent=n.sub;
   d.appendChild(lbl);d.appendChild(sub);w.appendChild(d);
 });
-
-// ── SVG ──────────────────────────────────────────────────────────────
+// SVG
 var defs=document.createElementNS('http://www.w3.org/2000/svg','defs');
 var cmap={};
-[[BL,'bl'],[RD,'rd'],[GN,'gn'],[AU,'au'],[PK,'pk'],[CR,'cr'],[OR,'or'],[TE,'te'],[DP,'dp'],[WA,'wa'],[PX,'px']].forEach(function(m){
+[[MG,'mg'],[RD,'rd'],[PX,'px'],[GN,'gn'],[AU,'au'],[RX,'rx'],[RP,'rp'],[CN,'cn'],[WA,'wa']].forEach(function(m){
   cmap[m[0]]=m[1];
   var mk=document.createElementNS('http://www.w3.org/2000/svg','marker');
   mk.setAttribute('id','a'+m[1]);mk.setAttribute('markerWidth','6');mk.setAttribute('markerHeight','6');
@@ -218,40 +164,26 @@ var cmap={};
   var p=document.createElementNS('http://www.w3.org/2000/svg','path');
   p.setAttribute('d','M0,0 L0,6 L6,3 z');p.setAttribute('fill',m[0]);mk.appendChild(p);defs.appendChild(mk);});
 svg.appendChild(defs);
-
 ED.forEach(function(e){
   var fn=nm[e.f],tn=nm[e.t];if(!fn||!tn)return;
   var stroke,mkr,op,sw,da=null;
-  var sid=function(c){return cmap[c]||'bl';};
-  if(e.k=='fn'){
-    stroke=e.f=='crm'?WA:e.f=='wha'?AU:e.f=='mat'?PK:CR;
-    mkr='url(#a'+sid(stroke)+')';op=.88;sw=1.9;
-  } else if(e.k=='cta'){
-    stroke=fn.c||BL;mkr='url(#a'+sid(stroke)+')';op=.2;sw=1.1;da='4 4';
-  } else if(e.k=='feed'){
-    stroke=fn.c||BL;mkr='url(#a'+sid(stroke)+')';op=.3;sw=1.1;da='3 4';
-  } else {
-    stroke=fn.c||BL;mkr='url(#a'+sid(stroke)+')';op=.42;sw=1.3;
-  }
+  var sid=function(c){return cmap[c]||'mg';};
+  if(e.k=='fn'){stroke=e.f=='crm'?WA:e.f=='wha'?AU:e.f=='mat'?RX:RP;mkr='url(#a'+sid(stroke)+')';op=.9;sw=1.8;}
+  else if(e.k=='cta'){stroke=fn.c||MG;mkr='url(#a'+sid(stroke)+')';op=.3;sw=1.1;da='4 3';}
+  else if(e.k=='feed'){stroke=fn.c||MG;mkr='url(#a'+sid(stroke)+')';op=.4;sw=1.1;da='3 3';}
+  else{stroke=fn.c||MG;mkr='url(#a'+sid(stroke)+')';op=.55;sw=1.4;}
   var d,fx,fy,tx2,ty2,mx;
-  if(e.k=='feed'){
-    fx=fn.x+fn.w/2;fy=fn.y+fn.h;tx2=tn.x;ty2=tn.y+tn.h/2;
-    d='M'+fx+','+fy+' C'+fx+','+(fy+80)+' '+(tx2-50)+','+ty2+' '+tx2+','+ty2;
-  } else {
-    fx=fn.x+fn.w;fy=fn.y+fn.h/2;tx2=tn.x;ty2=tn.y+tn.h/2;mx=(fx+tx2)/2;
-    d='M'+fx+','+fy+' C'+mx+','+fy+' '+mx+','+ty2+' '+tx2+','+ty2;
-  }
+  if(e.k=='feed'){fx=fn.x+fn.w/2;fy=fn.y+fn.h;tx2=tn.x;ty2=tn.y+tn.h/2;d='M'+fx+','+fy+' C'+fx+','+(fy+70)+' '+(tx2-50)+','+ty2+' '+tx2+','+ty2;}
+  else{fx=fn.x+fn.w;fy=fn.y+fn.h/2;tx2=tn.x;ty2=tn.y+tn.h/2;mx=(fx+tx2)/2;d='M'+fx+','+fy+' C'+mx+','+fy+' '+mx+','+ty2+' '+tx2+','+ty2;}
   var p=document.createElementNS('http://www.w3.org/2000/svg','path');
   if(da)p.setAttribute('stroke-dasharray',da);
   p.setAttribute('d',d);p.setAttribute('stroke',stroke);p.setAttribute('stroke-width',sw);
   p.setAttribute('fill','none');p.setAttribute('opacity',op);p.setAttribute('marker-end',mkr);
   svg.appendChild(p);
 });
-
-// ── CANVAS ──────────────────────────────────────────────────────────
 var cvs=document.getElementById('cvs'),tx=0,ty=0,sc=1,drag=false,lx=0,ly=0;
 function apply(){w.style.transform='translate('+tx+'px,'+ty+'px) scale('+sc+')';document.getElementById('zd').textContent=Math.round(sc*100)+'%';}
-function fit(){var W=2050,H=5350,cw=cvs.clientWidth,ch=cvs.clientHeight;sc=Math.min(cw/W,ch/H)*.87;tx=(cw-W*sc)/2;ty=(ch-H*sc)/2;apply();}
+function fit(){var W=2100,H=4900,cw=cvs.clientWidth,ch=cvs.clientHeight;sc=Math.min(cw/W,ch/H)*.88;tx=(cw-W*sc)/2;ty=(ch-H*sc)/2;apply();}
 function reset(){tx=30;ty=30;sc=1;apply();}
 window.onload=function(){fit();};setTimeout(function(){fit();},200);
 cvs.addEventListener('mousedown',function(e){if(e.target.closest('.nd'))return;drag=true;lx=e.clientX;ly=e.clientY;cvs.classList.add('drag');});
