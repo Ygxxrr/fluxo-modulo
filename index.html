@@ -3,39 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Campanhas 2026 · Colégio Módulo</title>
+<title>Fluxo Operacional 2026 · Colégio Módulo</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#070B14;overflow:hidden;width:100vw;height:100vh;font-family:system-ui,-apple-system,sans-serif}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:26px 26px;pointer-events:none}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(rgba(255,255,255,.055) 1px,transparent 1px);background-size:26px 26px;pointer-events:none}
 .hdr{position:fixed;top:0;left:0;right:0;height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;background:rgba(7,11,20,.92);border-bottom:1px solid rgba(255,255,255,.1);z-index:100}
 .ht{font-size:14px;font-weight:700;color:#E2E8F0}
-.hs{font-size:11px;color:#64748B;font-family:monospace}
-.hh{font-size:10px;color:rgba(100,116,139,.55);font-family:monospace}
+.hs{font-size:10px;color:#64748B;font-family:monospace}
+.hh{font-size:10px;color:rgba(100,116,139,.45);font-family:monospace}
 #cvs{position:fixed;top:50px;left:0;right:0;bottom:0;overflow:hidden;cursor:grab}
 #cvs.drag{cursor:grabbing}
 #w{position:absolute;top:0;left:0;transform-origin:0 0}
-.nd{position:absolute;border-radius:10px;padding:10px 13px;border:1px solid}
-.nd:hover{z-index:50;filter:brightness(1.1)}
-.nl{font-size:12px;font-weight:700;line-height:1.3;margin-bottom:2px}
-.ns{font-size:9.5px;line-height:1.5;color:#94A3B8;font-family:monospace}
-.bgs{display:flex;flex-wrap:wrap;gap:2px;margin-top:4px}
-.bg{font-size:8.5px;font-weight:700;padding:1px 5px;border-radius:3px;font-family:monospace}
+.nd{position:absolute;border-radius:9px;padding:8px 11px;border:1px solid}
+.nd:hover{filter:brightness(1.08);z-index:50}
+.nl{font-size:11px;font-weight:700;line-height:1.25;margin-bottom:2px}
+.ns{font-size:8.5px;line-height:1.4;color:#94A3B8;font-family:monospace}
 .ctrl{position:fixed;bottom:18px;right:18px;z-index:100;display:flex;gap:5px;align-items:center}
 .btn{height:32px;padding:0 11px;border-radius:7px;border:1px solid rgba(255,255,255,.14);background:rgba(7,11,20,.9);color:#94A3B8;font-size:11px;font-family:monospace;cursor:pointer}
 .btn:hover{color:#E2E8F0;border-color:rgba(255,255,255,.28)}
 #zd{height:32px;padding:0 10px;border-radius:7px;border:1px solid rgba(255,255,255,.14);background:rgba(7,11,20,.9);color:#94A3B8;font-size:11px;font-family:monospace;display:flex;align-items:center;min-width:52px;justify-content:center}
-.hint{position:fixed;bottom:18px;left:18px;font-size:10px;color:rgba(100,116,139,.4);font-family:monospace;z-index:100}
+.hint{position:fixed;bottom:18px;left:18px;font-size:10px;color:rgba(100,116,139,.35);font-family:monospace;z-index:100}
 </style>
 </head>
 <body>
 <div class="hdr">
-  <span class="ht">Colégio Módulo — Estrutura de Campanhas 2026</span>
-  <span class="hs">Meta R$3.900/mês &nbsp;·&nbsp; Google R$7.800/mês &nbsp;·&nbsp;</span>
+  <span class="ht">Colégio Módulo — Fluxo Operacional Completo 2026</span>
+  <span class="hs">Meta 5 camps · Google 5 camps · LP por produto · Site Institucional · CRM Kommo · WhatsApp · Matrícula</span>
   <span class="hh">drag · scroll · F fit · R reset</span>
 </div>
 <div id="cvs"><div id="w">
-  <svg id="svg" style="position:absolute;top:0;left:0;overflow:visible;pointer-events:none" width="3500" height="1300"></svg>
+  <svg id="svg" style="position:absolute;top:0;left:0;overflow:visible;pointer-events:none" width="9000" height="6500"></svg>
 </div></div>
 <div class="hint">drag · scroll · <b>F</b> fit · <b>R</b> reset</div>
 <div class="ctrl">
@@ -45,113 +43,223 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(rgba(2
   <button class="btn" id="bp">+</button>
 </div>
 <script>
-var BL='#1877F2',RD='#EA4335',PX='#4285F4',DP='#9333EA',GN='#10B981',AU='#F59E0B',PK='#EC4899',WA='#22C55E';
-var ND=[
-  {id:'meta',x:370,y:30,w:460,h:76,lbl:'META ADS',sub:'R$3.900/mes . 4 campanhas . Geracao de Leads',c:BL,big:1},
-  {id:'m1',x:10,y:178,w:280,h:68,lbl:'Camp. 1 - Future Fest',sub:'CBO . R$1.755/mes',c:BL},
-  {id:'m2',x:308,y:178,w:265,h:68,lbl:'Camp. 2 - Cultura Inglesa',sub:'CBO . R$975/mes',c:BL},
-  {id:'m3',x:591,y:178,w:258,h:68,lbl:'Camp. 3 - Pre-Matricula',sub:'CBO . R$1.170/mes',c:BL},
-  {id:'m4',x:867,y:178,w:250,h:68,lbl:'Camp. 4 - Retargeting',sub:'ABO . R$1.170/mes',c:DP},
-  {id:'m1a',x:0,y:340,w:180,h:72,lbl:'Awareness Video',sub:'Raio 10km . Pais 28-48\nVideo Future Fest',c:BL},
-  {id:'m1b',x:188,y:340,w:166,h:72,lbl:'Leads EF',sub:'Carrossel . Pais 28-45\nProjetos por serie',c:BL},
-  {id:'m1c',x:362,y:340,w:166,h:72,lbl:'Leads EM',sub:'Feed . Pais 32-50\nCultura Inglesa',c:BL},
-  {id:'m2a',x:536,y:340,w:200,h:72,lbl:'Interesse Ingles',sub:'Raio 10km . Pais 28-50\nIngles incluso mensalidade',c:BL},
-  {id:'m3a',x:744,y:340,w:190,h:72,lbl:'Lookalike 1-3%',sub:'Base de responsaveis\nUrgencia pre-matricula',c:BL},
-  {id:'m3b',x:942,y:340,w:190,h:72,lbl:'Interesses Educacao',sub:'Raio 10km\nCondicao que nao volta',c:BL},
-  {id:'m4a',x:1140,y:340,w:182,h:72,lbl:'Visitantes 30 dias',sub:'Pixel site\nBanner Future Fest',c:DP},
-  {id:'m4b',x:1330,y:340,w:182,h:72,lbl:'Abandono Form.',sub:'Pixel formulario\nVoce visitou o Modulo',c:DP},
-  {id:'ggl',x:2020,y:30,w:470,h:76,lbl:'GOOGLE ADS',sub:'R$7.800/mes . 5 campanhas . Search + PMax + Display',c:RD,big:1},
-  {id:'g1',x:1710,y:178,w:248,h:68,lbl:'Search Marca',sub:'CPA Desejado . R$2.340/mes',c:RD},
-  {id:'g2',x:1976,y:178,w:258,h:68,lbl:'Search Intencao EF',sub:'Max. Conv. . R$1.950/mes',c:RD},
-  {id:'g3',x:2252,y:178,w:258,h:68,lbl:'Search Intencao EM',sub:'Max. Conv. . R$1.170/mes',c:RD},
-  {id:'g4',x:2528,y:178,w:228,h:68,lbl:'Performance Max',sub:'CPA Desejado . R$1.170/mes',c:PX},
-  {id:'g5',x:2774,y:178,w:238,h:68,lbl:'Display Remarketing',sub:'R$1.170/mes',c:DP},
-  {id:'g1a',x:1682,y:340,w:200,h:78,lbl:'Grupo Marca Propria',sub:'"colegio modulo" + variacoes',c:RD,bdg:['Exata','Frase','Ampla']},
-  {id:'g1b',x:1890,y:340,w:192,h:78,lbl:'Grupo Concorrencia',sub:'"escola ingles incluso sp"',c:RD,bdg:['Exata','Frase']},
-  {id:'g2a',x:2090,y:340,w:200,h:78,lbl:'Grupo Matricula EF',sub:'"matricula escola fundamental"',c:RD,bdg:['Exata','Frase','Ampla']},
-  {id:'g2b',x:2298,y:340,w:192,h:78,lbl:'Grupo Tecnologia',sub:'"escola projeto tecnologico"',c:RD,bdg:['Frase','Ampla']},
-  {id:'g3a',x:2498,y:340,w:200,h:78,lbl:'Grupo Matricula EM',sub:'"colegio ensino medio sp"',c:RD,bdg:['Exata','Frase','Ampla']},
-  {id:'g4a',x:2706,y:340,w:188,h:78,lbl:'Assets Criativos',sub:'Videos Future Fest\nFotos . Headlines',c:PX},
-  {id:'g5a',x:2902,y:340,w:188,h:78,lbl:'Visitantes 30 dias',sub:'Banner display . Raio 10km',c:DP},
-  {id:'lp',x:1390,y:560,w:360,h:86,lbl:'LANDING PAGE',sub:'Pre-Matricula . Condicao Especial',c:GN,big:1,sp:'lp'},
-  {id:'wa',x:1460,y:722,w:268,h:68,lbl:'WhatsApp . Atendimento',sub:'Resposta em ate 15 minutos',c:WA,sp:'wa'},
-  {id:'mat',x:1436,y:864,w:306,h:86,lbl:'MATRICULA',sub:'Meta: 60-100 matriculas/ano',c:AU,big:1,sp:'mat'},
-  {id:'ind',x:1510,y:1026,w:224,h:64,lbl:'Indicacao',sub:'Retencao . Novas familias',c:PK,sp:'ind'},
-];
-var ED=[
-  {f:'meta',t:'m1'},{f:'meta',t:'m2'},{f:'meta',t:'m3'},{f:'meta',t:'m4'},
-  {f:'m1',t:'m1a'},{f:'m1',t:'m1b'},{f:'m1',t:'m1c'},
-  {f:'m2',t:'m2a'},{f:'m3',t:'m3a'},{f:'m3',t:'m3b'},{f:'m4',t:'m4a'},{f:'m4',t:'m4b'},
-  {f:'m1a',t:'lp',k:'cta'},{f:'m1b',t:'lp',k:'cta'},{f:'m1c',t:'lp',k:'cta'},
-  {f:'m2a',t:'lp',k:'cta'},{f:'m3a',t:'lp',k:'cta'},{f:'m3b',t:'lp',k:'cta'},
-  {f:'m4a',t:'lp',k:'cta'},{f:'m4b',t:'lp',k:'cta'},
-  {f:'ggl',t:'g1'},{f:'ggl',t:'g2'},{f:'ggl',t:'g3'},{f:'ggl',t:'g4'},{f:'ggl',t:'g5'},
-  {f:'g1',t:'g1a'},{f:'g1',t:'g1b'},{f:'g2',t:'g2a'},{f:'g2',t:'g2b'},
-  {f:'g3',t:'g3a'},{f:'g4',t:'g4a'},{f:'g5',t:'g5a'},
-  {f:'g1a',t:'lp',k:'cta'},{f:'g1b',t:'lp',k:'cta'},
-  {f:'g2a',t:'lp',k:'cta'},{f:'g2b',t:'lp',k:'cta'},
-  {f:'g3a',t:'lp',k:'cta'},{f:'g4a',t:'lp',k:'cta'},{f:'g5a',t:'lp',k:'cta'},
-  {f:'lp',t:'wa',k:'fn'},{f:'wa',t:'mat',k:'fn'},{f:'mat',t:'ind',k:'fn'},
-];
+var BL='#1877F2',RD='#EA4335',PX='#4285F4',DP='#9333EA',GN='#10B981',AU='#F59E0B',PK='#EC4899',WA='#22C55E',OR='#F97316',TE='#14B8A6',CR='#6366F1';
 var w=document.getElementById('w'),svg=document.getElementById('svg'),nm={};
+var ND=[],ED=[];
+
+function nd(id,x,y,w,h,lbl,sub,c,opts){
+  var n={id:id,x:x,y:y,w:w,h:h,lbl:lbl,sub:sub,c:c};
+  if(opts)Object.keys(opts).forEach(function(k){n[k]=opts[k];});
+  ND.push(n);return n;
+}
+function ed(f,t,k){ED.push({f:f,t:t,k:k||''});}
+
+// COLUMNS
+var X1=30,X2=240,X3=460,X4=680,X5=895,X6=1120,X7=1355,X8=1580,X9=1800;
+var NW=175,NH=52,CRW=155,CRH=40;
+
+var CRTYPES=[
+  {lbl:'Video Curto 1',sub:'Reels 15-30s'},
+  {lbl:'Video Curto 2',sub:'Reels 15-30s'},
+  {lbl:'Imagem Estatica 1',sub:'Feed square'},
+  {lbl:'Imagem Estatica 2',sub:'Feed square'},
+  {lbl:'Carrossel',sub:'Feed multiplas imgs'},
+  {lbl:'Stories Vertical',sub:'9:16 stories'},
+];
+
+// ── SHARED FUNNEL ──────────────────────────────────────────────────────
+var YF=2450;
+nd('crm', X6,YF,    185,66,'CRM · Kommo',     'Time Comercial · Atendimento',CR,{sp:'crm',big:1});
+nd('wha', X7,YF+8,  178,52,'WhatsApp',         'Contato direto · Time comercial',WA,{sp:'wha'});
+nd('mat', X8,YF+8,  178,68,'MATRICULA',         'Meta: 60-100/ano',AU,{sp:'mat',big:1});
+nd('ind', X9,YF+16, 168,52,'Indicacao',         'Retencao · Novas familias',PK,{sp:'ind'});
+ed('crm','wha','fn'); ed('wha','mat','fn'); ed('mat','ind','fn');
+
+// ── META ──────────────────────────────────────────────────────────────
+nd('meta',X1,YF-10,155,72,'META ADS','R$3.900/mes\n5 campanhas',BL,{big:1,plat:1});
+
+function metaCamp(campId,campLbl,campSub,conjData,campY,lpId,lpLbl){
+  nd(campId,X2,campY,NW,NH,campLbl,campSub,BL,{big:1});
+  ed('meta',campId);
+  nd(lpId,X5,campY+NH/2-18,158,50,lpLbl,'LP dedicada',GN,{sp:'lp'});
+  ed(lpId,'crm','fn');
+  conjData.forEach(function(conj,ci){
+    var cy=campY+ci*320;
+    var cId=campId+'_c'+ci;
+    nd(cId,X3,cy,NW,NH,conj.lbl,conj.sub,conj.c);
+    ed(campId,cId);
+    CRTYPES.forEach(function(cr,cri){
+      var crId=cId+'_cr'+cri;
+      nd(crId,X4,cy+cri*50,CRW,CRH,cr.lbl,cr.sub,conj.c,{cr:1});
+      ed(cId,crId); ed(crId,lpId,'cta');
+    });
+  });
+}
+
+metaCamp('c1','Camp.1 · EF I','Fund. I · CBO',[
+  {lbl:'Conj. Cultura Inglesa',sub:'Ingles incluso · 10km',c:TE},
+  {lbl:'Conj. Future Fest',sub:'Projetos tecnologicos',c:AU},
+  {lbl:'Conj. Institucional',sub:'Estrutura · Diferenciais',c:OR},
+],0,'lp1','LP EF I');
+
+metaCamp('c2','Camp.2 · EF II','Fund. II · CBO',[
+  {lbl:'Conj. Cultura Inglesa',sub:'Ingles incluso · 10km',c:TE},
+  {lbl:'Conj. Future Fest',sub:'Projetos tecnologicos',c:AU},
+  {lbl:'Conj. Institucional',sub:'Estrutura · Diferenciais',c:OR},
+],1020,'lp2','LP EF II');
+
+metaCamp('c3','Camp.3 · Ens.Medio','Ens. Medio · CBO',[
+  {lbl:'Conj. Cultura Inglesa',sub:'Ingles incluso · 10km',c:TE},
+  {lbl:'Conj. Future Fest',sub:'Projetos tecnologicos',c:AU},
+  {lbl:'Conj. Institucional',sub:'Estrutura · Diferenciais',c:OR},
+],2040,'lp3','LP Ens. Medio');
+
+// REMARKETING
+var rmkY=3100;
+nd('c4',X2,rmkY,NW,NH,'Camp.4 · Remarketing','Pixel · 30 dias · Reimpacto',DP,{big:1});
+ed('meta','c4');
+[
+  {id:'c4_c0',lbl:'Conj. EF I', lpId:'lp1',src:'c1',top:'Top 3 · Melhor Desempenho EF I',  tsub:'3 criativos campeoes Camp. EF I'},
+  {id:'c4_c1',lbl:'Conj. EF II',lpId:'lp2',src:'c2',top:'Top 3 · Melhor Desempenho EF II', tsub:'3 criativos campeoes Camp. EF II'},
+  {id:'c4_c2',lbl:'Conj. EM',   lpId:'lp3',src:'c3',top:'Top 3 · Melhor Desempenho EM',    tsub:'3 criativos campeoes Camp. Ens. Medio'},
+].forEach(function(r,ri){
+  nd(r.id,X3,rmkY+ri*180,NW,NH,r.lbl,'Visitantes LP · 30 dias',DP);
+  ed('c4',r.id);
+  nd(r.id+'_top',X4,rmkY+ri*180,CRW+10,NH+10,r.top,r.tsub,DP,{cr:1,top:1});
+  ed(r.id,r.id+'_top');
+  ed(r.id+'_top',r.lpId,'cta');
+  ed(r.src,r.id,'feed');
+});
+
+// LOOKALIKE
+var lkY=3700;
+nd('c5',X2,lkY,NW,NH,'Camp.5 · Lookalike','Responsaveis similares · Frio',PK,{big:1});
+ed('meta','c5');
+nd('form',X5,lkY+80,158,50,'Form. Nativo Meta','Lead direto plataforma',PK,{sp:'form'});
+ed('form','crm','fn');
+[
+  {id:'c5_c0',src:'c1',top:'Top 3 · Melhor Desempenho EF I',  tsub:'3 criativos campeoes Camp. EF I'},
+  {id:'c5_c1',src:'c2',top:'Top 3 · Melhor Desempenho EF II', tsub:'3 criativos campeoes Camp. EF II'},
+  {id:'c5_c2',src:'c3',top:'Top 3 · Melhor Desempenho EM',    tsub:'3 criativos campeoes Camp. Ens. Medio'},
+].forEach(function(r,ri){
+  var lbl=['Conj. EF I','Conj. EF II','Conj. EM'][ri];
+  nd(r.id,X3,lkY+ri*180,NW,NH,lbl,'Lookalike 1-3%\nFormulario nativo',PK);
+  ed('c5',r.id);
+  nd(r.id+'_top',X4,lkY+ri*180,CRW+10,NH+10,r.top,r.tsub,PK,{cr:1,top:1});
+  ed(r.id,r.id+'_top');
+  ed(r.id+'_top','form','cta');
+  ed(r.src,r.id,'feed');
+});
+
+// ── GOOGLE ────────────────────────────────────────────────────────────
+var GY=4520;
+nd('ggl',X1,GY+150,155,72,'GOOGLE ADS','R$7.800/mes\n5 campanhas',RD,{big:1,plat:1});
+
+// Search campaigns: Camp → Group → LP → CRM
+function gSearch(id,cl,cs,gl,gs,lpId,lpLbl,gy){
+  nd(id,X2,gy,NW,NH,cl,cs,RD,{big:1}); ed('ggl',id);
+  nd(id+'_g',X3,gy+6,NW,NH,gl,gs,RD); ed(id,id+'_g');
+  nd(lpId,X5,gy+6,158,50,lpLbl,'LP dedicada Google',GN,{sp:'lp'});
+  ed(id+'_g',lpId,'cta');
+  ed(lpId,'crm','fn');
+}
+gSearch('g1','Search · EF I',    'Max.Conv. · R$2.340','Grupo Matricula EF I', '[Exata][Frase][Ampla]','glp1','LP EF I · Google', GY+0);
+gSearch('g2','Search · EF II',   'Max.Conv. · R$1.950','Grupo Matricula EF II','[Exata][Frase][Ampla]','glp2','LP EF II · Google',GY+130);
+gSearch('g3','Search · Ens.Medio','Max.Conv. · R$1.170','Grupo Matricula EM',  '[Exata][Frase][Ampla]','glp3','LP EM · Google',   GY+260);
+
+// PMax + Search Institucional → Site → Form/WA → CRM
+nd('g4',X2,GY+400,NW,NH,'Performance Max',     'CPA Desejado · R$1.170',PX,{big:1}); ed('ggl','g4');
+nd('g4g',X3,GY+406,NW,NH,'Assets Criativos',   'Videos · Fotos · Headlines',PX);     ed('g4','g4g');
+nd('g5',X2,GY+520,NW,NH,'Search · Institucional','CPA Desejado · R$1.170',RD,{big:1}); ed('ggl','g5');
+nd('g5g',X3,GY+526,NW,NH,'Grupo Institucional', '[Exata][Frase]',RD);                 ed('g5','g5g');
+
+nd('gsite',X5,GY+456,185,52,'Site Institucional','colegiomodulo.com.br\nPai escolhe o produto',AU,{sp:'site'});
+ed('g4g','gsite','cta'); ed('g5g','gsite','cta');
+
+nd('gsf',X6-15,GY+420,172,46,'Form. de Contato','Nome + Telefone → CRM',GN,{sp:'gform'});
+nd('gswa',X6-15,GY+478,172,46,'WhatsApp Direto','Botao WA → CRM',WA,{sp:'gwa'});
+ed('gsite','gsf','fn'); ed('gsite','gswa','fn');
+ed('gsf','crm','fn');   ed('gswa','crm','fn');
+
+// ── BUILD DOM ──────────────────────────────────────────────────────────
 ND.forEach(function(n){
   nm[n.id]=n;
   var d=document.createElement('div');d.className='nd';
   d.style.left=n.x+'px';d.style.top=n.y+'px';d.style.width=n.w+'px';d.style.minHeight=n.h+'px';
-  var bg,bc,bs;
-  if(n.sp=='lp'){bg='rgba(16,185,129,.15)';bc='rgba(16,185,129,.6)';bs='0 0 20px rgba(16,185,129,.25)';}
-  else if(n.sp=='wa'){bg='rgba(34,197,94,.12)';bc='rgba(34,197,94,.5)';bs='0 0 14px rgba(34,197,94,.2)';}
-  else if(n.sp=='mat'){bg='rgba(245,158,11,.15)';bc='rgba(245,158,11,.6)';bs='0 0 20px rgba(245,158,11,.28)';}
-  else if(n.sp=='ind'){bg='rgba(236,72,153,.08)';bc='rgba(236,72,153,.42)';bs='none';}
-  else{bg=n.big?'rgba(255,255,255,.05)':'rgba(255,255,255,.025)';bc=n.c+'55';bs='none';}
+  var bg,bc,bs='none';
+  if(n.sp=='lp'){bg='rgba(16,185,129,.13)';bc='rgba(16,185,129,.52)';}
+  else if(n.sp=='crm'){bg='rgba(99,102,241,.14)';bc='rgba(99,102,241,.55)';bs='0 0 12px rgba(99,102,241,.2)';}
+  else if(n.sp=='wha'){bg='rgba(34,197,94,.12)';bc='rgba(34,197,94,.5)';bs='0 0 10px rgba(34,197,94,.18)';}
+  else if(n.sp=='mat'){bg='rgba(245,158,11,.13)';bc='rgba(245,158,11,.55)';bs='0 0 12px rgba(245,158,11,.2)';}
+  else if(n.sp=='ind'){bg='rgba(236,72,153,.08)';bc='rgba(236,72,153,.4)';}
+  else if(n.sp=='form'||n.sp=='gform'){bg='rgba(236,72,153,.1)';bc='rgba(236,72,153,.44)';}
+  else if(n.sp=='site'){bg='rgba(245,158,11,.1)';bc='rgba(245,158,11,.5)';bs='0 0 10px rgba(245,158,11,.15)';}
+  else if(n.sp=='gwa'){bg='rgba(34,197,94,.1)';bc='rgba(34,197,94,.45)';}
+  else if(n.plat){bg='rgba(255,255,255,.06)';bc=n.c+'66';bs='0 0 14px '+n.c+'1a';}
+  else if(n.top){bg='rgba(255,255,255,.03)';bc=n.c+'55';bs='0 0 6px '+n.c+'18';}
+  else if(n.cr){bg='rgba(255,255,255,.018)';bc=n.c+'38';}
+  else if(n.big){bg='rgba(255,255,255,.04)';bc=n.c+'55';}
+  else{bg='rgba(255,255,255,.025)';bc=n.c+'44';}
   d.style.background=bg;d.style.borderColor=bc;d.style.boxShadow=bs;
   var lbl=document.createElement('div');lbl.className='nl';lbl.style.color=n.c;
-  if(n.big)lbl.style.fontSize='14px';lbl.textContent=n.lbl;
+  if(n.plat)lbl.style.fontSize='12px';lbl.textContent=n.lbl;
   var sub=document.createElement('div');sub.className='ns';sub.textContent=n.sub;
-  d.appendChild(lbl);d.appendChild(sub);
-  if(n.bdg){var bw=document.createElement('div');bw.className='bgs';
-    n.bdg.forEach(function(b){var s=document.createElement('span');s.className='bg';
-      s.style.background=n.c+'22';s.style.color=n.c;s.style.border='1px solid '+n.c+'44';
-      s.textContent=b;bw.appendChild(s);});d.appendChild(bw);}
-  w.appendChild(d);
+  d.appendChild(lbl);d.appendChild(sub);w.appendChild(d);
 });
+
+// ── SVG ──────────────────────────────────────────────────────────────
 var defs=document.createElementNS('http://www.w3.org/2000/svg','defs');
-[[BL,'bl'],[RD,'rd'],[GN,'gn'],[AU,'au'],[PK,'pk']].forEach(function(m){
+var cmap={};
+[[BL,'bl'],[RD,'rd'],[GN,'gn'],[AU,'au'],[PK,'pk'],[CR,'cr'],[OR,'or'],[TE,'te'],[DP,'dp'],[WA,'wa'],[PX,'px']].forEach(function(m){
+  cmap[m[0]]=m[1];
   var mk=document.createElementNS('http://www.w3.org/2000/svg','marker');
-  mk.setAttribute('id','a'+m[1]);mk.setAttribute('markerWidth','7');mk.setAttribute('markerHeight','7');
-  mk.setAttribute('refX','5');mk.setAttribute('refY','3.5');mk.setAttribute('orient','auto');
+  mk.setAttribute('id','a'+m[1]);mk.setAttribute('markerWidth','6');mk.setAttribute('markerHeight','6');
+  mk.setAttribute('refX','5');mk.setAttribute('refY','3');mk.setAttribute('orient','auto');
   var p=document.createElementNS('http://www.w3.org/2000/svg','path');
-  p.setAttribute('d','M0,0 L0,7 L7,3.5 z');p.setAttribute('fill',m[0]);mk.appendChild(p);defs.appendChild(mk);});
+  p.setAttribute('d','M0,0 L0,6 L6,3 z');p.setAttribute('fill',m[0]);mk.appendChild(p);defs.appendChild(mk);});
 svg.appendChild(defs);
-var ms={meta:1,m1:1,m2:1,m3:1,m4:1,m1a:1,m1b:1,m1c:1,m2a:1,m3a:1,m3b:1,m4a:1,m4b:1};
+
 ED.forEach(function(e){
   var fn=nm[e.f],tn=nm[e.t];if(!fn||!tn)return;
-  var isM=!!ms[e.f],stroke,mkr,op,sw;
-  if(e.k=='fn'){stroke=e.f=='lp'?GN:e.f=='wa'?AU:PK;mkr='url(#a'+(e.f=='lp'?'gn':'au')+')';op=.9;sw=2.2;}
-  else if(e.k=='cta'){stroke=isM?BL:RD;mkr='url(#a'+(isM?'bl':'rd')+')';op=.18;sw=1.5;}
-  else if(isM){stroke=BL;mkr='url(#abl)';op=.5;sw=1.6;}
-  else{stroke=RD;mkr='url(#ard)';op=.5;sw=1.6;}
-  var fx=fn.x+fn.w/2,fy=fn.y+fn.h,tx2=tn.x+tn.w/2,ty2=tn.y;
-  var p=document.createElementNS('http://www.w3.org/2000/svg','path'),d;
-  if(e.k=='cta'){d='M'+fx+','+fy+' C'+fx+','+(fy+65)+' '+tx2+','+(ty2-65)+' '+tx2+','+ty2;p.setAttribute('stroke-dasharray','5 5');}
-  else if(e.k=='fn'){d='M'+fx+','+fy+' L'+tx2+','+ty2;}
-  else{var mid=(fy+ty2)/2;d='M'+fx+','+fy+' C'+fx+','+mid+' '+tx2+','+mid+' '+tx2+','+ty2;}
+  var stroke,mkr,op,sw,da=null;
+  var sid=function(c){return cmap[c]||'bl';};
+  if(e.k=='fn'){
+    stroke=e.f=='crm'?WA:e.f=='wha'?AU:e.f=='mat'?PK:CR;
+    mkr='url(#a'+sid(stroke)+')';op=.88;sw=1.9;
+  } else if(e.k=='cta'){
+    stroke=fn.c||BL;mkr='url(#a'+sid(stroke)+')';op=.2;sw=1.1;da='4 4';
+  } else if(e.k=='feed'){
+    stroke=fn.c||BL;mkr='url(#a'+sid(stroke)+')';op=.3;sw=1.1;da='3 4';
+  } else {
+    stroke=fn.c||BL;mkr='url(#a'+sid(stroke)+')';op=.42;sw=1.3;
+  }
+  var d,fx,fy,tx2,ty2,mx;
+  if(e.k=='feed'){
+    fx=fn.x+fn.w/2;fy=fn.y+fn.h;tx2=tn.x;ty2=tn.y+tn.h/2;
+    d='M'+fx+','+fy+' C'+fx+','+(fy+80)+' '+(tx2-50)+','+ty2+' '+tx2+','+ty2;
+  } else {
+    fx=fn.x+fn.w;fy=fn.y+fn.h/2;tx2=tn.x;ty2=tn.y+tn.h/2;mx=(fx+tx2)/2;
+    d='M'+fx+','+fy+' C'+mx+','+fy+' '+mx+','+ty2+' '+tx2+','+ty2;
+  }
+  var p=document.createElementNS('http://www.w3.org/2000/svg','path');
+  if(da)p.setAttribute('stroke-dasharray',da);
   p.setAttribute('d',d);p.setAttribute('stroke',stroke);p.setAttribute('stroke-width',sw);
   p.setAttribute('fill','none');p.setAttribute('opacity',op);p.setAttribute('marker-end',mkr);
   svg.appendChild(p);
 });
+
+// ── CANVAS ──────────────────────────────────────────────────────────
 var cvs=document.getElementById('cvs'),tx=0,ty=0,sc=1,drag=false,lx=0,ly=0;
 function apply(){w.style.transform='translate('+tx+'px,'+ty+'px) scale('+sc+')';document.getElementById('zd').textContent=Math.round(sc*100)+'%';}
-function fit(){var W=3240,H=1160,cw=cvs.clientWidth,ch=cvs.clientHeight;sc=Math.min(cw/W,ch/H)*.87;tx=(cw-W*sc)/2;ty=(ch-H*sc)/2;apply();}
+function fit(){var W=2050,H=5350,cw=cvs.clientWidth,ch=cvs.clientHeight;sc=Math.min(cw/W,ch/H)*.87;tx=(cw-W*sc)/2;ty=(ch-H*sc)/2;apply();}
 function reset(){tx=30;ty=30;sc=1;apply();}
-window.onload=function(){fit();};
-setTimeout(function(){fit();},200);
+window.onload=function(){fit();};setTimeout(function(){fit();},200);
 cvs.addEventListener('mousedown',function(e){if(e.target.closest('.nd'))return;drag=true;lx=e.clientX;ly=e.clientY;cvs.classList.add('drag');});
 document.addEventListener('mousemove',function(e){if(!drag)return;tx+=e.clientX-lx;ty+=e.clientY-ly;lx=e.clientX;ly=e.clientY;apply();});
 document.addEventListener('mouseup',function(){drag=false;cvs.classList.remove('drag');});
-cvs.addEventListener('wheel',function(e){e.preventDefault();var r=cvs.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top,f=e.deltaY<0?1.12:.88,ns=Math.max(.08,Math.min(4,sc*f));tx=mx-(mx-tx)*ns/sc;ty=my-(my-ty)*ns/sc;sc=ns;apply();},{passive:false});
+cvs.addEventListener('wheel',function(e){e.preventDefault();var r=cvs.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top,f=e.deltaY<0?1.12:.88,ns=Math.max(.04,Math.min(5,sc*f));tx=mx-(mx-tx)*ns/sc;ty=my-(my-ty)*ns/sc;sc=ns;apply();},{passive:false});
 window.addEventListener('keydown',function(e){if(e.key=='f'||e.key=='F')fit();if(e.key=='r'||e.key=='R')reset();});
-function zoom(f){var ns=Math.max(.08,Math.min(4,sc*f)),cx=cvs.clientWidth/2,cy=cvs.clientHeight/2;tx=cx-(cx-tx)*ns/sc;ty=cy-(cy-ty)*ns/sc;sc=ns;apply();}
+function zoom(f){var ns=Math.max(.04,Math.min(5,sc*f)),cx=cvs.clientWidth/2,cy=cvs.clientHeight/2;tx=cx-(cx-tx)*ns/sc;ty=cy-(cy-ty)*ns/sc;sc=ns;apply();}
 document.getElementById('bfit').onclick=fit;
 document.getElementById('bp').onclick=function(){zoom(1.2);};
 document.getElementById('bm').onclick=function(){zoom(.83);};
